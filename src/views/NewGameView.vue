@@ -30,7 +30,7 @@
               </path>
             </svg>
             <input v-model.number="game.playerHP" autocomplete="off" type="number" class="grow" name="player-hp"
-              placeholder="Players HP (80)" />
+              placeholder="Players HP (80) {0..255}" />
           </label>
           <label class="input input-bordered flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -40,10 +40,11 @@
               </path>
             </svg>
             <input v-model.number="game.towerHP" autocomplete="off" type="number" class="grow" name="tower-hp"
-              placeholder="Towers HP (60)" />
+              placeholder="Towers HP (60) {0..255}" />
           </label>
         </div>
       </div>
+      <p v-if="errorMsg !== '' ? true : false">{{ errorMsg }}</p>
       <button @click="createGame" class="btn btn-primary text-2xl"
         :disabled="!game.player1 || !game.player2">Play!</button>
     </div>
@@ -61,14 +62,14 @@
       <div class="mx-auto">
         <p>{{ game.player1?.name }} VS {{ game.player2?.name }}</p>
       </div>
-      <p>Player HP (80): {{ game.playerHP }}</p>
-      <p>Tower HP (60): {{ game.towerHP }}</p>
+      <p>Player HP: {{ game.playerHP }} (80)</p>
+      <p>Tower HP: {{ game.towerHP }} (60)</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import type { GameSetup, Player, Game } from '@/types/game'
 import { useFetch } from '@/composables/useFetch';
 import axios from 'axios';
@@ -82,7 +83,14 @@ const game = reactive<GameSetup>({
   playerHP: undefined
 })
 
+const errorMsg = ref('')
+
 const createGame = () => {
+  if (game.player1?.name === game.player2?.name) {
+    errorMsg.value = "player names can't be equal"
+    return
+  }
+  errorMsg.value = ''
   axios.
     post(import.meta.env.VITE_SERVER_URL + "/game/", game)
     .then((res) => {
