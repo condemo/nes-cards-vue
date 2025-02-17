@@ -93,8 +93,8 @@ const createGame = () => {
   errorMsg.value = ''
   axios.
     post(import.meta.env.VITE_SERVER_URL + "/game/", game)
-    .then((res) => {
-      console.log((res.data as Game).p1stats)
+    .then(res => {
+      // TODO: cambiar de vista a `game` pasando la data de res como `Game`
     })
     .catch(err => {
       console.log("ERROR -> ", err)
