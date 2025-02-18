@@ -70,9 +70,9 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import type { GameSetup, Player, Game } from '@/types/game'
+import type { GameSetup, Player } from '@/types/game'
 import { useFetch } from '@/composables/useFetch';
-import axios from 'axios';
+import { useCreateGame } from '@/composables/useCreateGame';
 
 const { data: playerList } = useFetch<Player[]>("/player/")
 
@@ -83,22 +83,10 @@ const game = reactive<GameSetup>({
   playerHP: undefined
 })
 
-const errorMsg = ref('')
+let errorMsg = ref('')
 
 const createGame = () => {
-  if (game.player1?.name === game.player2?.name) {
-    errorMsg.value = "player names can't be equal"
-    return
-  }
-  errorMsg.value = ''
-  axios.
-    post(import.meta.env.VITE_SERVER_URL + "/game/", game)
-    .then(res => {
-      // TODO: cambiar de vista a `game` pasando la data de res como `Game`
-    })
-    .catch(err => {
-      console.log("ERROR -> ", err)
-    })
+  errorMsg = useCreateGame(game)
 }
 
 </script>
