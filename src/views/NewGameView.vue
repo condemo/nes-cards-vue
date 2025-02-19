@@ -73,6 +73,9 @@ import { reactive, ref } from 'vue';
 import type { GameSetup, Player } from '@/types/game'
 import { useFetch } from '@/composables/useFetch';
 import { useCreateGame } from '@/composables/useCreateGame';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const { data: playerList } = useFetch<Player[]>("/player/")
 
@@ -87,5 +90,6 @@ let errorMsg = ref<string>('')
 
 const createGame = () => {
   useCreateGame(game)
+  router.replace("/game")
 }
 </script>
