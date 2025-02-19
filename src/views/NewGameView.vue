@@ -44,9 +44,9 @@
           </label>
         </div>
       </div>
-      <p v-if="errorMsg !== '' ? true : false">{{ errorMsg }}</p>
+      <p class="text-error my-1">{{ errorMsg }}</p>
       <button @click="createGame" class="btn btn-primary text-2xl"
-        :disabled="!game.player1 || !game.player2">Play!</button>
+        :disabled="!game.player1 || !game.player2 || game.player1.name === game.player2.name">Play!</button>
     </div>
     <div class="divider"></div>
     <button class="btn btn-primary fixed right-2 bottom-20" type="button">
@@ -83,10 +83,9 @@ const game = reactive<GameSetup>({
   playerHP: undefined
 })
 
-let errorMsg = ref('')
+let errorMsg = ref<string>('')
 
 const createGame = () => {
-  errorMsg = useCreateGame(game)
+  useCreateGame(game)
 }
-
 </script>
