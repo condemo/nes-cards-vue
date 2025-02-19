@@ -20,4 +20,7 @@ import { storeToRefs } from 'pinia';
 
 const gameStore = useGameStore()
 const { currentGame } = storeToRefs(gameStore)
+if (!currentGame.value) {
+  gameStore.setLastGame()
+}
 </script>
