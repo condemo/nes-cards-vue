@@ -5,10 +5,12 @@ import axios from "axios";
 
 export const useGameStore = defineStore('game', () => {
   let currentGame = ref<Game | null>(null)
+  let loading = ref<boolean>(false)
   // TODO: crear un archivo de configuracion global para cargar las env variables
   const serverUrl: string = import.meta.env.VITE_SERVER_URL
 
   const fetchLastGame = () => {
+    loading.value = true
     axios.
       get(serverUrl + "/game/last")
       .then(res => {
@@ -18,6 +20,7 @@ export const useGameStore = defineStore('game', () => {
       .catch(err => {
         console.log(err)
       })
+      .finally(() => loading.value = false)
   }
 
   const setCurrentGame = (game: Game) => {
@@ -25,6 +28,7 @@ export const useGameStore = defineStore('game', () => {
   }
 
   const setLastGame = (): void => {
+    loading.value = true
     axios.
       get(serverUrl + "/game/last")
       .then(res => {
@@ -33,10 +37,12 @@ export const useGameStore = defineStore('game', () => {
       .catch(err => {
         console.log(err)
       })
+      .finally(() => loading.value = false)
   }
 
   return {
     currentGame,
+    loading,
     fetchLastGame,
     setCurrentGame,
     setLastGame,
