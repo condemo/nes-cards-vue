@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h1 class="text-4xl font-bold m-1">GameView</h1>
     <Loading v-if="loading" />
-    <div v-else-if="currentGame" id="current-game" class="flex flex-col space-y-2">
-      <div id="players-stats" class="flex flex-row">
-        <p>{{ currentGame?.player1.name }}</p>
-        <p>{{ currentGame?.player2.name }}</p>
+    <div v-else-if="currentGame" id="current-game" class="flex flex-col mx-1">
+      <div id="players-stats" class="flex flex-row justify-evenly m-2 w-full p-1 mx-auto">
+        <PlayerStat :player="currentGame.player1" :player-stats="currentGame.p1stats" />
+        <PlayerStat :player="currentGame.player2" :player-stats="currentGame.p2stats" />
       </div>
     </div>
     <div v-else id="empty-view">
@@ -19,6 +18,7 @@
 import { useGameStore } from '@/stores/game';
 import { storeToRefs } from 'pinia';
 import Loading from '@/components/Loading.vue';
+import PlayerStat from '@/components/PlayerStat.vue'
 
 const gameStore = useGameStore()
 const { currentGame, loading } = storeToRefs(gameStore)
