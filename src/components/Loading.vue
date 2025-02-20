@@ -1,5 +1,5 @@
 <template>
   <div>
-    <p>LOADING...</p>
+    <span class="loading loading-spinner text-primary"></span>
   </div>
 </template>
