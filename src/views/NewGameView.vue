@@ -15,7 +15,7 @@
             <option v-for="p in playerList" :value="p" :key="p.id" :selected="p.name === 'Player1' ? true : false">{{
               p.name }}</option>
           </select>
-          <button onclick="new_player_modal.showModal()" class="btn btn-primary" type="button">
+          <button @click="showModal = true" class="btn btn-primary" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -65,17 +65,19 @@
       <p>Player HP: {{ game.playerHP }} (80)</p>
       <p>Tower HP: {{ game.towerHP }} (60)</p>
     </div>
-    <NewPlayerModal />
+    <NewPlayerModal v-if="showModal" :error-msg="newPlayerError" @user-create="addPlayer" @close-modal="closeModal" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import type { GameSetup, Player } from '@/types/game'
+import type { ApiError } from '@/types/apiCom'
 import { useFetch } from '@/composables/useFetch';
 import { useCreateGame } from '@/composables/useCreateGame';
 import { useRouter } from 'vue-router';
 import NewPlayerModal from '@/components/NewPlayerModal.vue'
+import axios, { AxiosError } from 'axios';
 
 const router = useRouter()
 const { data: playerList } = useFetch<Player[]>("/player/")
@@ -88,6 +90,29 @@ const game = reactive<GameSetup>({
 })
 
 let errorMsg = ref<string>('')
+const newPlayerError = ref<string>('')
+const showModal = ref<boolean>(false)
+
+const closeModal = () => {
+  showModal.value = false
+  newPlayerError.value = ''
+}
+
+const addPlayer = async (name: string) => {
+  await axios.
+    post(import.meta.env.VITE_SERVER_URL + "/player/", { name: name })
+    .then(res => {
+      playerList.value?.push(res.data as Player)
+      closeModal()
+      newPlayerError.value = ''
+    })
+    .catch(e => {
+      console.log(e)
+      const errRes = (e as AxiosError).response?.data
+      const { error } = errRes as ApiError
+      newPlayerError.value = error
+    })
+}
 
 const createGame = () => {
   useCreateGame(game)
