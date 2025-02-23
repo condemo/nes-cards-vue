@@ -15,7 +15,7 @@
             <option v-for="p in playerList" :value="p" :key="p.id" :selected="p.name === 'Player1' ? true : false">{{
               p.name }}</option>
           </select>
-          <button @click="showModal = true" class="btn btn-primary" type="button">
+          <button @click="showModal = true" class="btn bg-base-300" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -23,7 +23,7 @@
               </path>
             </svg>
           </button>
-          <select v-model="game.player2" class="select select-primary w-2/5 max-w-xs">
+          <select v-model="game.player2" class="select select-secondary w-2/5 max-w-xs">
             <option v-for="p in playerList" :value="p" :key="p.id" :selected="p.name === 'Player2' ? true : false">{{
               p.name }}
             </option>
@@ -52,13 +52,13 @@
           </label>
         </div>
       </div>
-      <p class="text-error my-1">{{ errorMsg }}</p>
+      <p class="text-error">{{ errorMsg }}</p>
       <button @click="createGame" class="btn btn-primary text-2xl"
         :disabled="!game.player1 || !game.player2 || game.player1.name === game.player2.name">Play!</button>
     </div>
     <div class="divider"></div>
-    <div class="my-2">
-      <h2 class="text-2xl">Current Setup</h2>
+    <div class="mb-2 font-bold">
+      <h2 class="text-4xl text-base-content font-[Phudu] font-semibold underline">Current Setup</h2>
       <div class="mx-auto">
         <p>{{ game.player1?.name }} VS {{ game.player2?.name }}</p>
       </div>
