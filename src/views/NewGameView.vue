@@ -58,12 +58,31 @@
     </div>
     <div class="divider"></div>
     <div class="mb-2 font-bold">
-      <h2 class="text-4xl text-base-content font-[Phudu] font-semibold underline">Current Setup</h2>
-      <div class="mx-auto">
-        <p>{{ game.player1?.name }} VS {{ game.player2?.name }}</p>
+      <h2 class="text-4xl text-base-content font-[Phudu] font-semibold underline mb-2">Current Setup</h2>
+      <div id="current-setup" class="mx-auto flex flex-col space-y-2">
+        <div id="player-names">
+          <p class="font-bold text-2xl"><span class="text-primary">{{ game.player1?.name }}</span> <span
+              class="text-3xl">
+              |VS|</span> <span class="text-secondary">{{
+                game.player2?.name }}</span>
+          </p>
+        </div>
+        <div id="game-p-hp" class="flex flex-row justify-center text-4xl">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 text-error">
+            <path
+              d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+          </svg>
+          <p>: {{ game.playerHP }} <span class="text-base-200">(80)</span></p>
+        </div>
       </div>
-      <p>Player HP: {{ game.playerHP }} (80)</p>
-      <p>Tower HP: {{ game.towerHP }} (60)</p>
+      <div id="game-t-hp" class="flex flex-row justify-center text-4xl">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 text-neutral">
+          <path fill-rule="evenodd"
+            d="M4.5 2.25a.75.75 0 0 0 0 1.5v16.5h-.75a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5h-.75V3.75a.75.75 0 0 0 0-1.5h-15ZM9 6a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm-.75 3.75A.75.75 0 0 1 9 9h1.5a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM9 12a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm3.75-5.25A.75.75 0 0 1 13.5 6H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM13.5 9a.75.75 0 0 0 0 1.5H15A.75.75 0 0 0 15 9h-1.5Zm-.75 3.75a.75.75 0 0 1 .75-.75H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM9 19.5v-2.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 9 19.5Z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <p>: {{ game.towerHP }} <span class="text-base-200">(60)</span></p>
+      </div>
     </div>
     <NewPlayerModal v-if="showModal" :error-msg="newPlayerError" @user-create="addPlayer" @close-modal="closeModal" />
   </div>
