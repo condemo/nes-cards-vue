@@ -15,9 +15,9 @@
 </template>
 
 <script setup lang="ts">
-import { useGameStore } from '@/stores/game';
-import { storeToRefs } from 'pinia';
-import Loading from '@/components/Loading.vue';
+import { useGameStore } from '@/stores/game'
+import { storeToRefs } from 'pinia'
+import Loading from '@/components/Loading.vue'
 import PlayerStat from '@/components/PlayerStat.vue'
 
 const gameStore = useGameStore()

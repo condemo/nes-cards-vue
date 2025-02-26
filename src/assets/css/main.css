@@ -1,13 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Phudu:wght@698&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui" {
-  themes: light --preferslight, dark --default, garden;
+  themes:
+    light --preferslight,
+    dark --default,
+    garden;
 }
 @plugin "daisyui/theme" {
-  name: "nes";
+  name: 'nes';
   default: false;
   prefersdark: false;
-  color-scheme: "dark";
+  color-scheme: 'dark';
   --color-base-100: oklch(14% 0 0);
   --color-base-200: oklch(20% 0 0);
   --color-base-300: oklch(26% 0 0);
@@ -37,4 +40,3 @@
   --depth: 0;
   --noise: 1;
 }
-

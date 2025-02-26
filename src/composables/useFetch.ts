@@ -1,4 +1,4 @@
-import { ref, type Ref, type UnwrapRef } from "vue"
+import { ref, type Ref, type UnwrapRef } from 'vue'
 
 type ApiResponse<T> = {
   data: Ref<UnwrapRef<T> | null>
@@ -31,6 +31,6 @@ export function useFetch<T>(endpoint: string): ApiResponse<T> {
   return {
     data,
     error,
-    loading
+    loading,
   }
 }

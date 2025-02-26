@@ -14,11 +14,11 @@
 </template>
 
 <script setup lang="ts">
-import { useFetch } from '@/composables/useFetch';
-import type { Game } from '@/types/game';
-import GameRecordCard from '@/components/GameRecordCard.vue';
+import { useFetch } from '@/composables/useFetch'
+import type { Game } from '@/types/game'
+import GameRecordCard from '@/components/GameRecordCard.vue'
 import Loading from '@/components/Loading.vue'
 import Error from '@/components/Error.vue'
 
-const { data, error, loading } = useFetch<Game[]>("/game/")
+const { data, error, loading } = useFetch<Game[]>('/game/')
 </script>

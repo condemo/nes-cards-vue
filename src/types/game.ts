@@ -30,4 +30,3 @@ export type Game = {
   winner: string
   createdAt: string
 }
-
