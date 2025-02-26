@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Loading v-if="loading" />
+    <LoadingSpinner v-if="loading" />
     <div v-else-if="currentGame" id="current-game" class="flex flex-col mx-1">
       <div id="players-stats" class="flex flex-row justify-evenly m-2 w-full p-1 mx-auto">
         <PlayerStat :player="currentGame.player1" :player-stats="currentGame.p1stats" />
@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { useGameStore } from '@/stores/game'
 import { storeToRefs } from 'pinia'
-import Loading from '@/components/Loading.vue'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import PlayerStat from '@/components/PlayerStat.vue'
 
 const gameStore = useGameStore()

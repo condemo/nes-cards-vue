@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-col space-y-3">
       <h1 class="text-4xl font-bold">Records</h1>
-      <Loading v-if="loading" />
+      <LoadingSpinner v-if="loading" />
       <Error :error="error" v-else-if="error" />
       <GameRecordCard v-else-if="data" v-for="g in data" :key="g.id" :game="g" />
       <div id="empty-history" v-else>
@@ -17,7 +17,7 @@
 import { useFetch } from '@/composables/useFetch'
 import type { Game } from '@/types/game'
 import GameRecordCard from '@/components/GameRecordCard.vue'
-import Loading from '@/components/Loading.vue'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import Error from '@/components/Error.vue'
 
 const { data, error, loading } = useFetch<Game[]>('/game/')
