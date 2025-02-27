@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <UpdateMenu v-show="playerMenu" :player="true" />
+    <UpdateMenu v-show="playerMenu" :player="true" @open-update-modal="openUpdateModal" />
     <div class="divider"></div>
     <TowerStat :thp="playerStats?.t1hp" />
     <TowerStat :thp="playerStats?.t2hp" />
@@ -34,5 +34,10 @@ defineProps({
   },
 })
 
+const emit = defineEmits(['open-update-modal'])
 const playerMenu = ref<boolean>(false)
+
+const openUpdateModal = (title: string) => {
+  emit('open-update-modal', title)
+}
 </script>

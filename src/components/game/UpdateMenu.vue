@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="menu menu-horizontal bg-base-200 rounded-box">
-      <li>
+      <li @click="$emit('open-update-modal', 'Damage')">
         <a class="tooltip tooltip-bottom" data-tip="Damage">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
             <path fill-rule="evenodd"
@@ -10,7 +10,7 @@
           </svg>
         </a>
       </li>
-      <li v-if="player">
+      <li v-if="player" @click="$emit('open-update-modal', 'Altered States')">
         <a class="tooltip tooltip-bottom" data-tip="Altered States">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
             <path fill-rule="evenodd"
@@ -20,7 +20,7 @@
 
         </a>
       </li>
-      <li>
+      <li @click="$emit('open-update-modal', 'Defense')">
         <a class="tooltip tooltip-bottom" data-tip="Defense">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
             <path fill-rule="evenodd"
