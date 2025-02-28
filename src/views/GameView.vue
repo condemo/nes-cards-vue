@@ -11,7 +11,7 @@
       <img src="/img/empty_meme.jpeg" class="w-56 mx-auto" />
       <h1 class="text-3xl font-bold my-2">There is no game yet</h1>
     </div>
-    <GameUpdateModal @close-update-modal="updateModal = false" v-if="updateModal" :current-section="updateSection" />
+    <GameUpdateModal @close-update-modal="updateModal = false" :current-section="updateSection" :open="updateModal" />
   </div>
 </template>
 
