@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <UpdateMenu v-show="showMenu" />
+  <UpdateMenu v-show="showMenu" @open-update-modal="openUpdateModal" />
 </template>
 
 <script setup lang="ts">
@@ -21,5 +21,11 @@ defineProps({
   thp: { type: Number },
 })
 
+const emit = defineEmits(['open-update-modal'])
+
 const showMenu = ref<boolean>(false)
+
+const openUpdateModal = (title: string) => {
+  emit('open-update-modal', title)
+}
 </script>

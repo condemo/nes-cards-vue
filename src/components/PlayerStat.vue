@@ -14,8 +14,8 @@
     </div>
     <UpdateMenu v-show="playerMenu" :player="true" @open-update-modal="openUpdateModal" />
     <div class="divider"></div>
-    <TowerStat :thp="playerStats?.t1hp" />
-    <TowerStat :thp="playerStats?.t2hp" />
+    <TowerStat :thp="playerStats?.t1hp" @open-update-modal="openUpdateModal" />
+    <TowerStat :thp="playerStats?.t2hp" @open-update-modal="openUpdateModal" />
   </div>
 </template>
 
