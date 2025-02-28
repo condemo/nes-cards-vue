@@ -30,3 +30,9 @@ export type Game = {
   winner: string
   createdAt: string
 }
+
+export enum UpdateMode {
+  Damage = "Damage",
+  AlteredEffect = "Altered Effect",
+  Defense = "Defense"
+}

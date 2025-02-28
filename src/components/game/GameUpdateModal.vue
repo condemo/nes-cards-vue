@@ -13,10 +13,12 @@
 </template>
 
 <script setup lang="ts">
+import type { PropType } from 'vue';
 import GameUpdateForm from './forms/GameUpdateForm.vue';
+import { UpdateMode } from '@/types/game'
 
 defineProps({
-  currentSection: { type: String, required: true },
+  currentSection: { type: String as PropType<UpdateMode>, required: true },
   open: { type: Boolean, required: true }
 })
 

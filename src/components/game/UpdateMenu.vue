@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="menu menu-horizontal bg-base-200 rounded-box">
-      <li @click="$emit('open-update-modal', 'Damage')">
+      <li @click="$emit('open-update-modal', UpdateMode.Damage)">
         <a class="tooltip tooltip-bottom" data-tip="Damage">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
             <path fill-rule="evenodd"
@@ -10,7 +10,7 @@
           </svg>
         </a>
       </li>
-      <li v-if="player" @click="$emit('open-update-modal', 'Altered States')">
+      <li v-if="player" @click="$emit('open-update-modal', UpdateMode.AlteredEffect)">
         <a class="tooltip tooltip-bottom" data-tip="Altered States">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
             <path fill-rule="evenodd"
@@ -20,7 +20,7 @@
 
         </a>
       </li>
-      <li @click="$emit('open-update-modal', 'Defense')">
+      <li @click="$emit('open-update-modal', UpdateMode.Defense)">
         <a class="tooltip tooltip-bottom" data-tip="Defense">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
             <path fill-rule="evenodd"
@@ -35,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import { UpdateMode } from '@/types/game'
 defineProps({
   player: { type: Boolean }
 })

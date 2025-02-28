@@ -21,10 +21,11 @@ import { storeToRefs } from 'pinia'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import PlayerStat from '@/components/PlayerStat.vue'
 import GameUpdateModal from '@/components/game/GameUpdateModal.vue'
+import { UpdateMode } from '@/types/game'
 import { ref } from 'vue'
 
 const gameStore = useGameStore()
-const updateSection = ref<string>('')
+const updateSection = ref<UpdateMode>(UpdateMode.Damage)
 const updateModal = ref<boolean>(false)
 
 const { currentGame, loading } = storeToRefs(gameStore)
@@ -32,9 +33,9 @@ if (!currentGame.value) {
   gameStore.setLastGame()
 }
 
-const openModal = (title: string) => {
+const openModal = (mode: UpdateMode) => {
   updateModal.value = true
-  updateSection.value = title
+  updateSection.value = mode
 }
 
 </script>
