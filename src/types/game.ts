@@ -10,6 +10,7 @@ export type PlayerStats = {
   hp: number
   t1hp: number
   t2hp: number
+  strength: number
 }
 
 export type GameSetup = {
