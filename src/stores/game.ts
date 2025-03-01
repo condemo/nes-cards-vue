@@ -17,7 +17,6 @@ export const useGameStore = defineStore('game', () => {
       .get(serverUrl + '/game/last')
       .then((res) => {
         currentGame.value = res.data
-        console.log(currentGame.value)
       })
       .catch((err) => {
         console.log(err)
