@@ -24,6 +24,7 @@ import { ref, type PropType } from 'vue'
 import type { Player, PlayerStats } from '@/types/game'
 import TowerStat from './TowerStat.vue'
 import UpdateMenu from './game/UpdateMenu.vue';
+import { UpdateMode } from '@/types/game'
 
 defineProps({
   player: {
@@ -37,7 +38,7 @@ defineProps({
 const emit = defineEmits(['open-update-modal'])
 const playerMenu = ref<boolean>(false)
 
-const openUpdateModal = (title: string) => {
-  emit('open-update-modal', title)
+const openUpdateModal = (mode: UpdateMode) => {
+  emit('open-update-modal', mode)
 }
 </script>
