@@ -1,9 +1,9 @@
-export type Player = {
+export interface Player {
   id?: number
   name: string
 }
 
-export type PlayerStats = {
+export interface PlayerStats {
   id: number
   gameID: number
   playerID: number
@@ -15,14 +15,14 @@ export type PlayerStats = {
   confusion: number
 }
 
-export type GameSetup = {
+export interface GameSetup {
   player1: Player | undefined
   player2: Player | undefined
   playerHP: number | undefined
   towerHP: number | undefined
 }
 
-export type Game = {
+export interface Game {
   id: number
   p1id: number
   p2id: number
