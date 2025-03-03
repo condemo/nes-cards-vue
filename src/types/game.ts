@@ -12,6 +12,7 @@ export type PlayerStats = {
   t2hp: number
   strength: number
   intanglibe: number
+  confusion: number
 }
 
 export type GameSetup = {
