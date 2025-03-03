@@ -11,7 +11,11 @@
       <img src="/img/empty_meme.jpeg" class="w-56 mx-auto" />
       <h1 class="text-3xl font-bold my-2">There is no game yet</h1>
     </div>
-    <GameUpdateModal @close-update-modal="updateModal = false" :current-section="updateSection" :open="updateModal" />
+    <GameUpdateModal @close-update-modal="updateModal = false" :current-section="updateSection" :open="updateModal">
+      <AlteredForm v-if="updateSection === UpdateMode.AlteredEffect" />
+      <DamageForm v-else-if="updateSection === UpdateMode.Damage" />
+      <DefenseForm v-else="updateSection === UpdateMode.Defense" />
+    </GameUpdateModal>
   </div>
 </template>
 
@@ -22,6 +26,9 @@ import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import PlayerStat from '@/components/PlayerStat.vue'
 import GameUpdateModal from '@/components/game/GameUpdateModal.vue'
 import { UpdateMode } from '@/types/game'
+import AlteredForm from '@/components/game/forms/AlteredForm.vue'
+import DamageForm from '@/components/game/forms/DamageForm.vue'
+import DefenseForm from '@/components/game/forms/DefenseForm.vue'
 import { ref } from 'vue'
 
 const gameStore = useGameStore()

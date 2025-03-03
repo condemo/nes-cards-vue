@@ -4,6 +4,7 @@
       <button @click="close" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       <GameUpdateForm :title="currentSection">
         <!-- TODO: Renderizar diferentes forms dependiendo de la sección que corresponda -->
+        <slot />
       </GameUpdateForm>
     </div>
     <form method="dialog" class="modal-backdrop">
