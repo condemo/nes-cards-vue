@@ -10,8 +10,8 @@
             Game
           </button>
         </router-link>
-          <br>
-          <router-link to="/config">
+        <br>
+        <router-link to="/config">
           <button class="btn btn-primary" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path fill-rule="evenodd"
@@ -26,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const name = ref("Home")
+import { useConfigStore } from '@/stores/config'
+const name = 'Home'
+useConfigStore().loadTheme()
 </script>

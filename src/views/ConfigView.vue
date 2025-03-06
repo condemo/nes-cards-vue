@@ -1,15 +1,29 @@
 <template>
   <div>
     <h1 class="text-4xl font-bold">Config</h1>
-    <img @load="isLoaded = true" class="py-5 mx-auto"
-      src="https://pbs.twimg.com/media/E8c6-2pWYAEAjRG?format=jpg&name=medium" alt="no lo hice">
-    <Loading v-if="!isLoaded" />
+
+    <fieldset class="fieldset border border-primary rounded-box">
+      <legend class="fieldset-legend text-3xl text-primary">UI</legend>
+      <label class="select select-secondary mx-auto">
+        <span class="label">Theme</span>
+        <select v-model="selectedTheme">
+          <option v-for="(theme, index) in themeList" :value="theme.value" :key="index">{{ theme.name }}</option>
+        </select>
+      </label>
+      <p class="fieldset-label mx-auto">All related to User Interface</p>
+    </fieldset>
   </div>
 </template>
 
 <script setup lang="ts">
-import Loading from '@/components/Loading.vue';
-import { ref } from 'vue';
+import { useConfigStore } from '@/stores/config';
+import { ref, watchEffect } from 'vue';
 
-const isLoaded = ref<boolean>(false)
+const configStore = useConfigStore()
+const themeList = configStore.themeList
+const selectedTheme = ref(themeList[0].value)
+
+watchEffect(async () => {
+  configStore.setTheme(selectedTheme.value)
+})
 </script>
