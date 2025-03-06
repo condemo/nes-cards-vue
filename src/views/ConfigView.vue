@@ -6,7 +6,7 @@
       <legend class="fieldset-legend text-3xl text-primary">UI</legend>
       <label class="select select-secondary mx-auto">
         <span class="label">Theme</span>
-        <select v-model="selectedTheme">
+        <select v-model="currentTheme">
           <option v-for="(theme, index) in themeList" :value="theme.value" :key="index">{{ theme.name }}</option>
         </select>
       </label>
@@ -17,13 +17,10 @@
 
 <script setup lang="ts">
 import { useConfigStore } from '@/stores/config';
-import { ref, watchEffect } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const configStore = useConfigStore()
 const themeList = configStore.themeList
-const selectedTheme = ref(configStore.currentTheme)
+const { currentTheme } = storeToRefs(configStore)
 
-watchEffect(async () => {
-  configStore.setTheme(selectedTheme.value)
-})
 </script>

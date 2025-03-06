@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 
 interface Theme {
   name: string
@@ -16,29 +16,20 @@ export const useConfigStore = defineStore("config", () => {
     { name: 'Cyberpunk', value: 'cyberpunk' },
   ]
 
-  const currentTheme = ref<string>(themeList[0].value)
+  const currentTheme = ref<string | null>(localStorage.getItem('theme'))
   const html = document.querySelector('html')
 
-  const loadTheme = () => {
-    const current = localStorage.getItem('theme')
-
-    if (current) {
-      currentTheme.value = current
-    }
-
-    html?.setAttribute('data-theme', currentTheme.value)
+  if (!currentTheme.value) {
+    currentTheme.value = 'garden'
   }
 
-  const setTheme = (theme: string) => {
-    currentTheme.value = theme
-    html?.setAttribute('data-theme', currentTheme.value)
-    localStorage.setItem('theme', theme)
-  }
+  watchEffect(async () => {
+    html?.setAttribute("data-theme", currentTheme.value as string)
+    localStorage.setItem('theme', currentTheme.value as string)
+  })
 
   return {
     themeList,
     currentTheme,
-    loadTheme,
-    setTheme
   }
 })
