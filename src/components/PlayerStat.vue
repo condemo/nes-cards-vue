@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col space-y-3">
-    <div class="stats shadow w-40">
+    <div class="stats shadow w-40 bg-neutral">
       <div @click="playerMenu = !playerMenu" class="stat">
-        <div class="stat-title text-black text-xl font-bold">{{ player?.name }}</div>
+        <div class="stat-title text-accent text-xl font-bold">{{ player?.name }}</div>
         <div class="flex flex-row justify-items-center text-primary mx-auto">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8">
             <path
