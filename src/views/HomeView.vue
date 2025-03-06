@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const name = ref('Home')
+import { useConfigStore } from '@/stores/config'
+const name = 'Home'
+useConfigStore().loadTheme()
 </script>
