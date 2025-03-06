@@ -21,7 +21,7 @@ import { ref, watchEffect } from 'vue';
 
 const configStore = useConfigStore()
 const themeList = configStore.themeList
-const selectedTheme = ref(themeList[0].value)
+const selectedTheme = ref(configStore.currentTheme)
 
 watchEffect(async () => {
   configStore.setTheme(selectedTheme.value)
