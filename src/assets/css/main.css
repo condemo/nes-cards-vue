@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Phudu:wght@698&display=swap');
 @import 'tailwindcss';
 @plugin "daisyui" {
-  themes: light --preferslight, dark, garden --default, cupcake, synthwave, retro, cyberpunk;
+  themes: light --preferslight, dark, garden --default, cupcake, synthwave, retro, cyberpunk, winter, forest;
 }
 @plugin "daisyui/theme" {
   name: 'nes';

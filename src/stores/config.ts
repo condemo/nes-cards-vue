@@ -14,6 +14,8 @@ export const useConfigStore = defineStore("config", () => {
     { name: 'Synthwave', value: 'synthwave' },
     { name: 'Retro', value: 'retro' },
     { name: 'Cyberpunk', value: 'cyberpunk' },
+    { name: 'Winter', value: 'winter' },
+    { name: 'Forest', value: 'forest' },
   ]
 
   const currentTheme = ref<string | null>(localStorage.getItem('theme'))
