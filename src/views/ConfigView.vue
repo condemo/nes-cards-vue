@@ -1,26 +1,17 @@
 <template>
   <div>
     <h1 class="text-4xl font-bold">Config</h1>
-
-    <fieldset class="fieldset border border-primary rounded-box">
-      <legend class="fieldset-legend text-3xl text-primary">UI</legend>
-      <label class="select select-secondary mx-auto">
-        <span class="label">Theme</span>
-        <select v-model="currentTheme">
-          <option v-for="(theme, index) in themeList" :value="theme.value" :key="index">{{ theme.name }}</option>
-        </select>
-      </label>
-      <p class="fieldset-label mx-auto">All related to User Interface</p>
-    </fieldset>
+    <div id="config-section">
+      <UIConfig />
+      <p>...</p>
+      <DataConfig />
+      <GameConfig />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useConfigStore } from '@/stores/config';
-import { storeToRefs } from 'pinia';
-
-const configStore = useConfigStore()
-const themeList = configStore.themeList
-const { currentTheme } = storeToRefs(configStore)
-
+import UIConfig from '@/components/config/UIConfig.vue'
+import DataConfig from '@/components/config/DataConfig.vue'
+import GameConfig from '@/components/config/GameConfig.vue'
 </script>
