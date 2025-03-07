@@ -28,7 +28,6 @@ export const useConfigStore = defineStore("config", () => {
   watchEffect(async () => {
     html?.setAttribute("data-theme", currentTheme.value as string)
     localStorage.setItem('theme', currentTheme.value as string)
-    console.log('config saved')
   })
 
   return {
