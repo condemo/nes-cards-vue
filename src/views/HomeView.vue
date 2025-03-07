@@ -23,6 +23,4 @@
 </template>
 
 <script setup lang="ts">
-import { useConfigStore } from '@/stores/config'
-useConfigStore()
 </script>
