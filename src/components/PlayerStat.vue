@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col space-y-3">
+  <div class="flex flex-col space-y-3 hover:cursor-pointer">
     <div class="stats shadow w-40 bg-neutral">
       <div @click="playerMenu = !playerMenu" class="stat">
         <div class="stat-title text-accent text-xl font-bold">{{ player?.name }}</div>

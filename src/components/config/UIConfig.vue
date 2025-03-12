@@ -4,7 +4,7 @@
       <legend class="fieldset-legend text-3xl text-primary">UI</legend>
       <label class="select select-secondary mx-auto">
         <span class="label">Theme</span>
-        <select v-model="currentTheme">
+        <select v-model="currentTheme" class="hover:cursor-pointer">
           <option v-for="(theme, index) in themeList" :value="theme.value" :key="index">{{ theme.name }}</option>
         </select>
       </label>
