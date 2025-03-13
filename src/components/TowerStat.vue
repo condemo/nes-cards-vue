@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import UpdateMenu from './game/UpdateMenu.vue';
+import { UpdateMode } from '@/types/game'
 defineProps({
   thp: { type: Number },
 })
@@ -25,7 +26,7 @@ const emit = defineEmits(['open-update-modal'])
 
 const showMenu = ref<boolean>(false)
 
-const openUpdateModal = (title: string) => {
-  emit('open-update-modal', title)
+const openUpdateModal = (mode: UpdateMode) => {
+  emit('open-update-modal', mode)
 }
 </script>

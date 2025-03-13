@@ -45,10 +45,6 @@ export const useGameStore = defineStore('game', () => {
       .finally(() => (loading.value = false))
   }
 
-  // TODO: Recibe unos nuevos stats y un id de un player para actualizarlos,
-  // envía los datos actualizados al server y si todo va bien updatea la interfaz
-  const updateStats = async () => { }
-
   return {
     currentGame,
     loading,

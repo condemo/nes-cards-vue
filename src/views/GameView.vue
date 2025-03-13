@@ -6,6 +6,7 @@
         <PlayerStat :player="currentGame.player1" :player-stats="currentGame.p1stats" @open-update-modal="openModal" />
         <PlayerStat :player="currentGame.player2" :player-stats="currentGame.p2stats" @open-update-modal="openModal" />
       </div>
+      <!-- TODO: Resume Section... -->
     </div>
     <div v-else id="empty-view">
       <img src="/img/empty_meme.jpeg" class="w-56 mx-auto" />
