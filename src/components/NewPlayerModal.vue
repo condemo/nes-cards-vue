@@ -3,12 +3,8 @@
     <div class="modal-box">
       <div class="flex flex-col">
         <p class="text-error">{{ errorMsg }}</p>
-        <input
-          v-model="playerName"
-          type="text"
-          placeholder="Type here"
-          class="input input-bordered input-primary w-3/4 mx-auto max-w-xs my-4"
-        />
+        <input v-model="playerName" type="text" placeholder="Type here"
+          class="input input-bordered input-primary w-3/4 mx-auto max-w-xs my-4" />
         <button @click="$emit('user-create', playerName)" class="btn btn-primary w-1/3 mx-auto">
           Create
         </button>
@@ -25,6 +21,6 @@ import { ref } from 'vue'
 
 const playerName = ref<string>('')
 defineProps({
-  errorMsg: { type: String, required: true },
+  errorMsg: { type: String },
 })
 </script>

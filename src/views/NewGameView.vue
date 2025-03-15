@@ -53,7 +53,7 @@
           </label>
         </div>
       </div>
-      <p class="text-error">{{ errorMsg }}</p>
+      <p class="text-error">{{ newPlayerError?.error }}</p>
       <button @click="createGame" class="btn btn-primary text-2xl"
         :disabled="!game.player1 || !game.player2 || game.player1.name === game.player2.name">
         Play!
@@ -87,22 +87,23 @@
         <p>: {{ game.towerHP }} <span class="text-base-200">(60)</span></p>
       </div>
     </div>
-    <NewPlayerModal v-if="showModal" :error-msg="newPlayerError" @user-create="addPlayer" @close-modal="closeModal" />
+    <NewPlayerModal v-if="showModal" :error-msg="newPlayerError?.error" @user-create="addPlayer"
+      @close-modal="closeModal" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import type { GameSetup, Player } from '@/types/game'
-import type { ApiError } from '@/types/apiCom'
-import { useFetch } from '@/composables/useFetch'
-import { useCreateGame } from '@/composables/useCreateGame'
+import type { GameSetup } from '@/types/game'
+import { useCreateGame } from '@/composables/useGame'
 import { useRouter } from 'vue-router'
 import NewPlayerModal from '@/components/NewPlayerModal.vue'
-import axios, { AxiosError } from 'axios'
+import { useGameDataStore } from '@/stores/gameData'
+import { storeToRefs } from 'pinia'
 
 const router = useRouter()
-const { data: playerList } = useFetch<Player[]>('/player/')
+const gameDataStore = useGameDataStore()
+const { playerList, apiError: newPlayerError } = storeToRefs(gameDataStore)
 
 const game = reactive<GameSetup>({
   player1: undefined,
@@ -111,29 +112,21 @@ const game = reactive<GameSetup>({
   playerHP: undefined,
 })
 
-const errorMsg = ref<string>('')
-const newPlayerError = ref<string>('')
 const showModal = ref<boolean>(false)
 
 const closeModal = () => {
   showModal.value = false
-  newPlayerError.value = ''
+  newPlayerError.value = null
 }
 
 const addPlayer = async (name: string) => {
-  await axios
-    .post(import.meta.env.VITE_SERVER_URL + '/player/', { name: name })
-    .then((res) => {
-      playerList.value?.push(res.data as Player)
-      closeModal()
-      newPlayerError.value = ''
-    })
-    .catch((e) => {
-      console.log(e)
-      const errRes = (e as AxiosError).response?.data
-      const { error } = errRes as ApiError
-      newPlayerError.value = error
-    })
+  // TODO: usa createPlayer desde las store, si todo sale bien cierra el modal
+  // Lidiar con errores correctamente
+
+  await gameDataStore.createPlayer(name)
+  if (!!newPlayerError) {
+    closeModal()
+  }
 }
 
 const createGame = () => {
