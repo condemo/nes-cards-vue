@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import { useGameStore } from '@/stores/game'
 import { storeToRefs } from 'pinia'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import PlayerStat from '@/components/PlayerStat.vue'
@@ -31,14 +30,15 @@ import AlteredForm from '@/components/game/forms/AlteredForm.vue'
 import DamageForm from '@/components/game/forms/DamageForm.vue'
 import DefenseForm from '@/components/game/forms/DefenseForm.vue'
 import { ref } from 'vue'
+import { useGameDataStore } from '@/stores/gameData'
 
-const gameStore = useGameStore()
+const gameDataStore = useGameDataStore()
 const updateSection = ref<UpdateMode>(UpdateMode.Damage)
 const updateModal = ref<boolean>(false)
 
-const { currentGame, loading } = storeToRefs(gameStore)
+const { currentGame, loading } = storeToRefs(gameDataStore)
 if (!currentGame.value) {
-  gameStore.setLastGame()
+  gameDataStore.setLastGame()
 }
 
 const openModal = (mode: UpdateMode) => {
