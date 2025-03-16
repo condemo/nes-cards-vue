@@ -95,7 +95,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import type { GameSetup } from '@/types/game'
-import { useCreateGame } from '@/composables/useGame'
 import { useRouter } from 'vue-router'
 import NewPlayerModal from '@/components/NewPlayerModal.vue'
 import { useGameDataStore } from '@/stores/gameData'
@@ -130,7 +129,7 @@ const addPlayer = async (name: string) => {
 }
 
 const createGame = () => {
-  useCreateGame(game)
+  gameDataStore.createGame(game)
   router.replace('/game')
 }
 </script>
