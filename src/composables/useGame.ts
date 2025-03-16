@@ -3,12 +3,14 @@ import type { Game, GameSetup, Player } from '@/types/game'
 import axios, { AxiosError } from 'axios'
 import { ref } from 'vue'
 
-export const useCreateGame = (game: GameSetup) => {
+// TODO: mover import.meta... a la store de configuración
+const serverUrl = import.meta.env.VITE_SERVER_URL
+
+export const useCreateGame = async (game: GameSetup) => {
   const createdGame = ref<Game | null>(null)
   const error = ref<ApiError | null>(null)
-
-  axios
-    .post(import.meta.env.VITE_SERVER_URL + '/game/', game)
+  await axios
+    .post(serverUrl + '/game/', game)
     .then((res) => {
       createdGame.value = res.data as Game
     })
@@ -28,8 +30,7 @@ export const useCreatePlayer = async (name: string) => {
   const error = ref<ApiError | null>(null)
 
   await axios
-    // TODO: mover import.meta... a la store de configuración
-    .post(import.meta.env.VITE_SERVER_URL + '/player/', { name: name })
+    .post(serverUrl + '/player/', { name: name })
     .then((res) => {
       newPlayer.value = res.data as Player
     })
@@ -42,4 +43,20 @@ export const useCreatePlayer = async (name: string) => {
     newPlayer,
     error
   }
+}
+
+export const useGetLastGame = async () => {
+  const lastGame = ref<Game | null>(null)
+  await axios
+    .get(serverUrl + '/game/last', {
+      params: { updateCurrent: true }
+    })
+    .then((res) => {
+      lastGame.value = res.data as Game
+    })
+    .catch((err) => {
+      // TODO: Gestionar este error
+      console.log(err)
+    })
+  return { lastGame }
 }

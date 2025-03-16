@@ -1,5 +1,5 @@
 import { useFetch } from "@/composables/useFetch";
-import { useCreateGame, useCreatePlayer } from "@/composables/useGame";
+import { useCreateGame, useCreatePlayer, useGetLastGame } from "@/composables/useGame";
 import type { ApiError } from "@/types/apiCom";
 import type { Game, GameSetup, Player } from "@/types/game";
 import { defineStore } from "pinia";
@@ -11,10 +11,6 @@ export const useGameDataStore = defineStore('gameData', () => {
   const apiError = ref<ApiError | null>(null)
   const playerList = useFetch<Player[]>('/player/').data
 
-  const setCurrentGame = (game: Game) => {
-    currentGame.value = game
-  }
-
   const createPlayer = async (name: string) => {
     loading.value = true
     const { newPlayer, error } = await useCreatePlayer(name)
@@ -23,15 +19,17 @@ export const useGameDataStore = defineStore('gameData', () => {
     loading.value = false
   }
 
-  const createGame = (game: GameSetup): void => {
+  const createGame = async (game: GameSetup) => {
     loading.value = true
-    const { createdGame, error } = useCreateGame(game)
-    if (error.value) {
-      apiError.value = error.value
-    } else {
-      currentGame.value = createdGame.value
-    }
+    const { createdGame, error } = await useCreateGame(game)
+    currentGame.value = createdGame.value
+    apiError.value = error.value
     loading.value = false
+  }
+
+  const setLastGame = async () => {
+    const { lastGame } = await useGetLastGame()
+    currentGame.value = lastGame.value
   }
 
   return {
@@ -39,8 +37,8 @@ export const useGameDataStore = defineStore('gameData', () => {
     loading,
     apiError,
     playerList,
-    setCurrentGame,
     createPlayer,
     createGame,
+    setLastGame
   }
 })
