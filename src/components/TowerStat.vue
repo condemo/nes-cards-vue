@@ -1,6 +1,6 @@
 <template>
   <div class="stats shadow w-28 h-24 rounded-full mx-auto bg-base-300">
-    <div @click="showMenu = !showMenu" class="stat">
+    <div class="stat">
       <div class="flex flex-col items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6">
           <path fill-rule="evenodd"
@@ -11,22 +11,10 @@
       </div>
     </div>
   </div>
-  <UpdateMenu v-show="showMenu" @open-update-modal="openUpdateModal" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import UpdateMenu from './game/UpdateMenu.vue';
-import { UpdateMode } from '@/types/game'
 defineProps({
   thp: { type: Number },
 })
-
-const emit = defineEmits(['open-update-modal'])
-
-const showMenu = ref<boolean>(false)
-
-const openUpdateModal = (mode: UpdateMode) => {
-  emit('open-update-modal', mode)
-}
 </script>
