@@ -119,9 +119,6 @@ const closeModal = () => {
 }
 
 const addPlayer = async (name: string) => {
-  // TODO: usa createPlayer desde las store, si todo sale bien cierra el modal
-  // Lidiar con errores correctamente
-
   await gameDataStore.createPlayer(name)
   if (!!newPlayerError) {
     closeModal()
