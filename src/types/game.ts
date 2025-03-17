@@ -1,7 +1,3 @@
-import { useGameDataStore } from "@/stores/gameData"
-import { storeToRefs, type Store } from "pinia"
-import type { Ref } from "vue"
-
 export interface Player {
   id: number
   name: string
