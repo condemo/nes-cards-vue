@@ -15,7 +15,7 @@ export interface PlayerStats {
   t1hp: number
   t2hp: number
   strength: number
-  intanglibe: number
+  intangible: number
   confusion: number
 }
 
