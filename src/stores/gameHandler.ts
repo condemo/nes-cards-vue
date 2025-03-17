@@ -2,6 +2,7 @@ import { defineStore, storeToRefs } from "pinia";
 import { PlayerTurn, PlayerMove, TurnMode } from '@/types/game'
 import { ref, shallowReactive } from "vue";
 import { useGameDataStore } from "./gameData";
+import { calculateDMG } from "@/utils/game";
 
 export const useGameHandlerStore = defineStore('gameHandler', () => {
   const turnMode = ref<TurnMode>(TurnMode.Attack)
@@ -18,14 +19,45 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
       if (turnMode.value === TurnMode.Defense) {
         // TODO: 'choque' de jugadas, apply en stats
 
-        // DMG - DF Moves
+        // - Apply Effects -
+        // confusion
+        currentGame.value.p1stats.confusion += player1Move.confusion
+        currentGame.value.p2stats.confusion += player2Move.confusion
+        // strength
+        currentGame.value.p1stats.strength += player1Move.strength
+        currentGame.value.p2stats.strength += player2Move.strength
+        // intangible
+        currentGame.value.p1stats.intangible += player1Move.intangible
+        currentGame.value.p2stats.intangible += player2Move.intangible
+
+        // - DMG vs DF Moves -
         player1Move.attack(player2Move.defense)
         player2Move.attack(player1Move.defense)
 
-        // DMG Stats
+        // - DMG Stats -  TODO:
+        currentGame.value = calculateDMG(currentGame.value, player1Move, player2Move)
+
+        // Rest Effects Turns  TODO:
+        // confusion
+        if (currentGame.value.p1stats.confusion > 0) {
+          currentGame.value.p1stats.confusion -= 1
+        }
+        if (currentGame.value.p2stats.confusion > 0) {
+          currentGame.value.p2stats.confusion -= 1
+        }
+
+        // intangible
+        if (currentGame.value.p1stats.intangible > 0) {
+          currentGame.value.p1stats.intangible -= 1
+        }
+        if (currentGame.value.p2stats.intangible > 0) {
+          currentGame.value.p2stats.intangible -= 1
+        }
 
         player1Move.reset()
         player2Move.reset()
+
+        roundCount.value += 1
       }
 
       switch (currentPlayerTurn.value) {
@@ -44,7 +76,6 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
           ? TurnMode.Defense
           : TurnMode.Attack
       )
-      roundCount.value += 1
     }
   }
 

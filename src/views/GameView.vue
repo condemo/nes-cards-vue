@@ -7,6 +7,7 @@
         <PlayerStat :player="currentGame.player2" :player-stats="currentGame.p2stats" @open-update-modal="openModal" />
       </div>
       <!-- TODO: Resume Section... -->
+      <button @click="nextTurn()" class="btn btn-primary text-xl font-bold">Next Turn</button>
     </div>
     <div v-else id="empty-view">
       <img src="/img/empty_meme.jpeg" class="w-56 mx-auto" />
@@ -31,14 +32,27 @@ import DamageForm from '@/components/game/forms/DamageForm.vue'
 import DefenseForm from '@/components/game/forms/DefenseForm.vue'
 import { ref } from 'vue'
 import { useGameDataStore } from '@/stores/gameData'
+import { useGameHandlerStore } from '@/stores/gameHandler'
 
 const gameDataStore = useGameDataStore()
+const gameHandlerStore = useGameHandlerStore()
+const { player1Move } = storeToRefs(gameHandlerStore)
 const updateSection = ref<UpdateMode>(UpdateMode.Damage)
 const updateModal = ref<boolean>(false)
 
 const { currentGame, loading } = storeToRefs(gameDataStore)
 if (!currentGame.value) {
   gameDataStore.setLastGame()
+}
+
+const nextTurn = () => {
+  // TODO: Borrar simulación; implementar mecanismo para modificar
+  // únicamente el 'move' del player correspondiente al turno
+  player1Move.value.strength += 3
+  player1Move.value.damage += 3
+  player1Move.value.poison += 4
+  player1Move.value.confusion += 2
+  gameHandlerStore.nextTurn()
 }
 
 const openModal = (mode: UpdateMode) => {
