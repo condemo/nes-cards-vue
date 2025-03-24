@@ -1,9 +1,11 @@
 <template>
   <div class="flex flex-col space-y-3 hover:cursor-pointer">
-    <div class="stats shadow w-40 bg-neutral" :class="{
-      'border-primary border-4':
-        playerMenu
-    }">
+    <div class="stats shadow w-40 bg-neutral" :class="[
+      { 'border-4': playerMenu },
+      turnMode === TurnMode.Attack
+        ? 'border-primary'
+        : 'border-secondary'
+    ]">
       <div class="stat">
         <div class="stat-title text-accent text-xl font-bold">{{ player?.name }}</div>
         <div class="flex flex-row justify-items-center text-primary mx-auto">
@@ -27,7 +29,7 @@ import { computed, type PropType } from 'vue'
 import type { Player, PlayerStats, PlayerTurn } from '@/types/game'
 import TowerStat from './TowerStat.vue'
 import UpdateMenu from './game/UpdateMenu.vue';
-import { UpdateMode } from '@/types/game'
+import { TurnMode, UpdateMode } from '@/types/game'
 import { useGameHandlerStore } from '@/stores/gameHandler';
 import { storeToRefs } from 'pinia';
 
@@ -42,7 +44,7 @@ const props = defineProps({
 })
 
 const gameHandlerStore = useGameHandlerStore()
-const { currentPlayerTurn } = storeToRefs(gameHandlerStore)
+const { currentPlayerTurn, turnMode } = storeToRefs(gameHandlerStore)
 
 const emit = defineEmits(['open-update-modal'])
 const playerMenu = computed(() => {

@@ -81,6 +81,7 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     currentPlayerTurn,
     player1Move,
     player2Move,
+    turnMode,
     roundCount,
     nextTurn,
   }
