@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col space-y-3 hover:cursor-pointer">
-    <div class="stats shadow w-40 bg-neutral">
-      <div @click="playerMenu = !playerMenu" class="stat">
+    <div class="stats shadow w-40 bg-neutral" :class="{
+      'border-primary border-4':
+        playerMenu
+    }">
+      <div class="stat">
         <div class="stat-title text-accent text-xl font-bold">{{ player?.name }}</div>
         <div class="flex flex-row justify-items-center text-primary mx-auto">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8">
@@ -20,23 +23,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type PropType } from 'vue'
-import type { Player, PlayerStats } from '@/types/game'
+import { computed, type PropType } from 'vue'
+import type { Player, PlayerStats, PlayerTurn } from '@/types/game'
 import TowerStat from './TowerStat.vue'
 import UpdateMenu from './game/UpdateMenu.vue';
 import { UpdateMode } from '@/types/game'
+import { useGameHandlerStore } from '@/stores/gameHandler';
+import { storeToRefs } from 'pinia';
 
-defineProps({
+const props = defineProps({
   player: {
     type: Object as PropType<Player>,
   },
   playerStats: {
     type: Object as PropType<PlayerStats>,
   },
+  playerPosition: { type: Number as PropType<PlayerTurn>, required: true }
 })
 
+const gameHandlerStore = useGameHandlerStore()
+const { currentPlayerTurn } = storeToRefs(gameHandlerStore)
+
 const emit = defineEmits(['open-update-modal'])
-const playerMenu = ref<boolean>(false)
+const playerMenu = computed(() => {
+  return currentPlayerTurn.value === props.playerPosition
+})
 
 const openUpdateModal = (mode: UpdateMode) => {
   emit('open-update-modal', mode)
