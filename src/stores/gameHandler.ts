@@ -6,7 +6,7 @@ import { calculateDMG } from "@/utils/game";
 
 export const useGameHandlerStore = defineStore('gameHandler', () => {
   const turnMode = ref<TurnMode>(TurnMode.Attack)
-  const roundCount = ref<number>(0)
+  const roundCount = ref<number>(1)
   const currentPlayerTurn = ref<PlayerTurn>(PlayerTurn.Player1)
   const player1Move = shallowReactive<PlayerMove>(new PlayerMove)
   const player2Move = shallowReactive<PlayerMove>(new PlayerMove)
@@ -31,8 +31,8 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         currentGame.value.p2stats.intangible += player2Move.intangible
 
         // - DMG vs DF Moves -
-        player1Move.attack(player2Move.defense)
-        player2Move.attack(player1Move.defense)
+        player1Move.damage = player2Move.applyDefense(player1Move.damage)
+        player2Move.damage = player1Move.applyDefense(player2Move.damage)
 
         // - DMG Stats -  TODO:
         currentGame.value = calculateDMG(currentGame.value, player1Move, player2Move)
@@ -60,15 +60,14 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         roundCount.value += 1
       }
 
-      switch (currentPlayerTurn.value) {
-        case PlayerTurn.Player1:
-          if (turnMode.value === TurnMode.Attack) {
-            currentPlayerTurn.value = PlayerTurn.Player2
-          }
-        case PlayerTurn.Player2:
-          if (turnMode.value === TurnMode.Attack) {
-            currentPlayerTurn.value = PlayerTurn.Player1
-          }
+      if (currentPlayerTurn.value === PlayerTurn.Player1) {
+        if (turnMode.value === TurnMode.Attack) {
+          currentPlayerTurn.value = PlayerTurn.Player2
+        }
+      } else {
+        if (turnMode.value === TurnMode.Attack) {
+          currentPlayerTurn.value = PlayerTurn.Player1
+        }
       }
 
       turnMode.value = (
