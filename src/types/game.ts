@@ -103,54 +103,28 @@ export class PlayerMove {
     this.poison = 0
   }
 
-  // attack(defense: number) {
-  //   this.damage -= defense
-  //   if (this.damage < 0) {
-  //     this.damage = 0
-  //   }
-  // }
   applyDefense(dmg: number[]): number[] {
-    console.log('initial dmg ->', dmg)
-    this.defense.defenseList.forEach((value, index) => {
-      console.log(index, value.def)
-    })
     let dmgCopy = [...dmg]
 
     dmg.some((value, index, array) => {
-      console.log(`iteration n-${index + 1}`)
       let lastDef = this.defense.peek()
-      console.log('current def ->', lastDef)
-      console.log('current dmg ->', value)
       if (lastDef) {
         let defRest = lastDef.def - value
         let dmgRest = -defRest
-        console.log('dmgRest', dmgRest)
-        console.log("defRest", defRest)
         if (defRest <= 0) {
           this.defense.pop()
           dmgCopy.shift()
-          console.log('dmg after remove', dmgCopy)
-          console.log('def after', this.defense.peek()?.def)
-          console.log('def size left', this.defense.size())
         } else {
           if (dmgRest <= 0) {
             dmgCopy.shift()
           }
           if (index !== array.length - 1) {
-            console.log('def updated to', defRest, 'def size', this.defense.size())
             this.defense.updatePeek(defRest)
           }
-          console.log('defense after rest', this.defense.peek()?.def)
-          console.log('dmg after rest', dmgCopy)
         }
       } else { return true }
-      console.log("---=-=-=-=-=-=-")
     })
-    // console.log("end defenseList", this.defense.defenseList)
-    this.defense.defenseList.forEach((value) => { console.log(`rest defense value ${value.def}`) })
-    // console.log("end damage", dmg)
-    console.log("damage copy", dmgCopy)
-    console.log("----------------------------------------------------------")
+
     return dmgCopy
   }
 
