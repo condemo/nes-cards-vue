@@ -2,21 +2,27 @@ import type { Game, PlayerMove } from '@/types/game'
 
 export function calculateDMG(game: Game, p1move: PlayerMove, p2move: PlayerMove): Game {
   if (game.p1stats.t2hp > 0) {
-    game.p1stats.t2hp -= p2move.damage
+    p2move.damage.forEach((value) => {
+      game.p1stats.t2hp -= value
+    })
     game.p1stats.t2hp = (
       game.p1stats.t2hp < 0
         ? 0
         : game.p1stats.t2hp
     )
   } else if (game.p1stats.t1hp > 0) {
-    game.p1stats.t1hp -= p2move.damage
+    p2move.damage.forEach((value) => {
+      game.p1stats.t1hp -= value
+    })
     game.p1stats.t1hp = (
       game.p1stats.t1hp < 0
         ? 0
         : game.p1stats.t1hp
     )
   } else {
-    game.p1stats.hp -= p2move.damage
+    p2move.damage.forEach((value) => {
+      game.p1stats.hp -= value
+    })
     game.p1stats.hp = (
       game.p1stats.hp < 0
         ? 0
@@ -25,21 +31,28 @@ export function calculateDMG(game: Game, p1move: PlayerMove, p2move: PlayerMove)
   }
 
   if (game.p2stats.t2hp > 0) {
-    game.p2stats.t2hp -= p1move.damage
+    p1move.damage.forEach((value) => {
+      game.p2stats.t2hp -= value
+    })
     game.p2stats.t2hp = (
       game.p2stats.t2hp < 0
         ? 0
         : game.p2stats.t2hp
     )
   } else if (game.p2stats.t1hp > 0) {
-    game.p2stats.t1hp -= p1move.damage
+    p1move.damage.forEach((value) => {
+      game.p2stats.t1hp -= value
+    })
+
     game.p2stats.t1hp = (
       game.p2stats.t1hp < 0
         ? 0
         : game.p2stats.t1hp
     )
   } else {
-    game.p2stats.hp -= p1move.damage
+    p1move.damage.forEach((value) => {
+      game.p2stats.hp -= value
+    })
     game.p2stats.hp = (
       game.p2stats.hp < 0
         ? 0
