@@ -17,8 +17,6 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
   const nextTurn = () => {
     if (currentGame.value) {
       if (turnMode.value === TurnMode.Defense) {
-        // TODO: 'choque' de jugadas, apply en stats
-
         // - Apply Effects -
         // confusion
         currentGame.value.p1stats.confusion += player1Move.confusion
