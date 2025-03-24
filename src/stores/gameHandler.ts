@@ -32,10 +32,10 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         player1Move.damage = player2Move.applyDefense(player1Move.damage, currentGame.value.p1stats.strength)
         player2Move.damage = player1Move.applyDefense(player2Move.damage, currentGame.value.p1stats.strength)
 
-        // - DMG Stats -  TODO:
+        // - DMG Stats -
         currentGame.value = calculateDMG(currentGame.value, player1Move, player2Move)
 
-        // Rest Effects Turns  TODO:
+        // - Rest Effects Turns -
         // confusion
         if (currentGame.value.p1stats.confusion > 0) {
           currentGame.value.p1stats.confusion -= 1
