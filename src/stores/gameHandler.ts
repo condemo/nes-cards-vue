@@ -1,5 +1,6 @@
 import { defineStore, storeToRefs } from "pinia";
-import { PlayerTurn, PlayerMove, TurnMode } from '@/types/game'
+import { PlayerTurn, TurnMode } from '@/types/game'
+import { PlayerMove } from '@/game/game'
 import { ref, shallowReactive } from "vue";
 import { useGameDataStore } from "./gameData";
 import { calculateDMG } from "@/utils/game";
