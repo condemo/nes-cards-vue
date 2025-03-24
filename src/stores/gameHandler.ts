@@ -31,8 +31,8 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         currentGame.value.p2stats.intangible += player2Move.intangible
 
         // - DMG vs DF Moves -
-        player1Move.damage = player2Move.applyDefense(player1Move.damage)
-        player2Move.damage = player1Move.applyDefense(player2Move.damage)
+        player1Move.damage = player2Move.applyDefense(player1Move.damage, currentGame.value.p1stats.strength)
+        player2Move.damage = player1Move.applyDefense(player2Move.damage, currentGame.value.p1stats.strength)
 
         // - DMG Stats -  TODO:
         currentGame.value = calculateDMG(currentGame.value, player1Move, player2Move)

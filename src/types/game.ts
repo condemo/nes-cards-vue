@@ -103,13 +103,13 @@ export class PlayerMove {
     this.poison = 0
   }
 
-  applyDefense(dmg: number[]): number[] {
+  applyDefense(dmg: number[], str: number): number[] {
     let dmgCopy = [...dmg]
 
     dmg.some((value, index, array) => {
       let lastDef = this.defense.peek()
       if (lastDef) {
-        let defRest = lastDef.def - value
+        let defRest = lastDef.def - (value + str)
         let dmgRest = -defRest
         if (defRest <= 0) {
           this.defense.pop()
