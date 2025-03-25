@@ -31,6 +31,9 @@ export interface Game {
   p1stats: PlayerStats
   p2stats: PlayerStats
   winner: string
+  round: number
+  playerTurn: PlayerTurn
+  turnMode: TurnMode
   createdAt: string
 }
 
