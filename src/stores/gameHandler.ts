@@ -1,19 +1,27 @@
 import { defineStore, storeToRefs } from "pinia";
 import { PlayerTurn, TurnMode } from '@/types/game'
 import { PlayerMove } from '@/game/game'
-import { ref, shallowReactive } from "vue";
+import { computed, shallowReactive } from "vue";
 import { useGameDataStore } from "./gameData";
 import { calculateDMG } from "@/utils/game";
 
 export const useGameHandlerStore = defineStore('gameHandler', () => {
-  const turnMode = ref<TurnMode>(TurnMode.Attack)
-  const roundCount = ref<number>(1)
-  const currentPlayerTurn = ref<PlayerTurn>(PlayerTurn.Player1)
   const player1Move = shallowReactive<PlayerMove>(new PlayerMove)
   const player2Move = shallowReactive<PlayerMove>(new PlayerMove)
 
   const gameDataStore = useGameDataStore()
   const { currentGame } = storeToRefs(gameDataStore)
+
+  // computed data from currentGame for cleaner use
+  const roundCount = computed(() => {
+    return currentGame.value?.round
+  })
+  const currentPlayerTurn = computed(() => {
+    return currentGame.value?.playerTurn
+  })
+  const turnMode = computed(() => {
+    return currentGame.value?.turnMode
+  })
 
   const nextTurn = () => {
     if (currentGame.value) {
@@ -56,25 +64,26 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         player1Move.reset()
         player2Move.reset()
 
-        roundCount.value += 1
+        currentGame.value.round += 1
       }
 
       if (currentPlayerTurn.value === PlayerTurn.Player1) {
         if (turnMode.value === TurnMode.Attack) {
-          currentPlayerTurn.value = PlayerTurn.Player2
+          currentGame.value.playerTurn = PlayerTurn.Player2
         }
       } else {
         if (turnMode.value === TurnMode.Attack) {
-          currentPlayerTurn.value = PlayerTurn.Player1
+          currentGame.value.playerTurn = PlayerTurn.Player1
         }
       }
 
-      turnMode.value = (
+      currentGame.value.turnMode = (
         turnMode.value === TurnMode.Attack
           ? TurnMode.Defense
           : TurnMode.Attack
       )
     }
+    gameDataStore.saveGame()
   }
 
   return {
