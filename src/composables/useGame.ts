@@ -60,3 +60,12 @@ export const useGetLastGame = async () => {
     })
   return { lastGame }
 }
+
+export const useUpdateGame = async (game: Game) => {
+  await axios.
+    put(serverUrl + '/game/', game)
+    .catch(err => {
+      // TODO: Gesionar este error
+      console.log(err)
+    })
+}
