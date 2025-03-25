@@ -1,4 +1,5 @@
 import { useFetch } from "@/composables/useFetch";
+import { useUpdateGame } from "@/composables/useGame";
 import { useCreateGame, useCreatePlayer, useGetLastGame } from "@/composables/useGame";
 import type { ApiError } from "@/types/apiCom";
 import type { Game, GameSetup, Player } from "@/types/game";
@@ -28,8 +29,23 @@ export const useGameDataStore = defineStore('gameData', () => {
   }
 
   const setLastGame = async () => {
-    const { lastGame } = await useGetLastGame()
-    currentGame.value = lastGame.value
+    if (localStorage.getItem('lastGame') === null) {
+      const { lastGame } = await useGetLastGame()
+      currentGame.value = lastGame.value
+      localStorage.setItem("lastGame", JSON.stringify(currentGame.value))
+    } else {
+      currentGame.value = JSON.parse(localStorage.getItem("lastGame") || '{}')
+    }
+  }
+
+  const saveGame = async () => {
+    if (currentGame.value) {
+      useUpdateGame(currentGame.value)
+      console.log("saved game:", currentGame.value)
+      localStorage.setItem('lastGame', JSON.stringify(currentGame.value))
+    } else {
+      console.log("error -> no game")
+    }
   }
 
   return {
@@ -39,6 +55,7 @@ export const useGameDataStore = defineStore('gameData', () => {
     playerList,
     createPlayer,
     createGame,
-    setLastGame
+    setLastGame,
+    saveGame,
   }
 })
