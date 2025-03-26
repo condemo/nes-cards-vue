@@ -6,6 +6,8 @@ import type { Game, GameSetup, Player } from "@/types/game";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
+// TODO: Toda la gestión correcta de errores falta en este archivo
+
 export const useGameDataStore = defineStore('gameData', () => {
   const currentGame = ref<Game | null>(null)
   const loading = ref<boolean>(false)
@@ -24,6 +26,7 @@ export const useGameDataStore = defineStore('gameData', () => {
     loading.value = true
     const { createdGame, error } = await useCreateGame(game)
     currentGame.value = createdGame.value
+    localStorage.setItem("lastGame", JSON.stringify(currentGame.value))
     apiError.value = error.value
     loading.value = false
   }
