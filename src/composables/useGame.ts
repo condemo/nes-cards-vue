@@ -1,12 +1,14 @@
+import { useConfigStore } from '@/stores/config'
 import type { ApiError } from '@/types/apiCom'
 import type { Game, GameSetup, Player } from '@/types/game'
 import axios, { AxiosError } from 'axios'
 import { ref } from 'vue'
 
 // TODO: mover import.meta... a la store de configuración
-const serverUrl = import.meta.env.VITE_SERVER_URL
 
 export const useCreateGame = async (game: GameSetup) => {
+  const configStore = useConfigStore()
+  const serverUrl = configStore.envConfig.serverUrl
   const createdGame = ref<Game | null>(null)
   const error = ref<ApiError | null>(null)
   await axios
@@ -28,6 +30,8 @@ export const useCreateGame = async (game: GameSetup) => {
 export const useCreatePlayer = async (name: string) => {
   const newPlayer = ref<Player | null>()
   const error = ref<ApiError | null>(null)
+  const configStore = useConfigStore()
+  const serverUrl = configStore.envConfig.serverUrl
 
   await axios
     .post(serverUrl + '/player/', { name: name })
@@ -47,6 +51,8 @@ export const useCreatePlayer = async (name: string) => {
 
 export const useGetLastGame = async () => {
   const lastGame = ref<Game | null>(null)
+  const configStore = useConfigStore()
+  const serverUrl = configStore.envConfig.serverUrl
   await axios
     .get(serverUrl + '/game/last', {
       params: { updateCurrent: true }
@@ -62,6 +68,8 @@ export const useGetLastGame = async () => {
 }
 
 export const useUpdateGame = async (game: Game) => {
+  const configStore = useConfigStore()
+  const serverUrl = configStore.envConfig.serverUrl
   await axios.
     put(serverUrl + '/game/', game)
     .catch(err => {

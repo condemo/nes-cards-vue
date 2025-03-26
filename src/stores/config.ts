@@ -6,6 +6,10 @@ interface Theme {
   value: string
 }
 
+interface EnvConfig {
+  serverUrl: string
+}
+
 const themeList: Theme[] = [
   { name: 'Garden', value: 'garden' },
   { name: 'Dark', value: 'dark' },
@@ -17,7 +21,11 @@ const themeList: Theme[] = [
   { name: 'Forest', value: 'forest' },
 ]
 
+
 export const useConfigStore = defineStore("config", () => {
+  const envConfig: EnvConfig = {
+    serverUrl: import.meta.env.VITE_SERVER_URL
+  }
   const currentTheme = ref<string | null>(localStorage.getItem('theme'))
   const html = document.querySelector('html')
 
@@ -33,5 +41,6 @@ export const useConfigStore = defineStore("config", () => {
   return {
     themeList,
     currentTheme,
+    envConfig,
   }
 })

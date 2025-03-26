@@ -1,3 +1,4 @@
+import { useConfigStore } from '@/stores/config'
 import { ref, type Ref, type UnwrapRef } from 'vue'
 
 type ApiResponse<T> = {
@@ -10,7 +11,8 @@ export function useFetch<T>(endpoint: string): ApiResponse<T> {
   const data = ref<T | null>(null)
   const error = ref<Error | null>(null)
   const loading = ref<boolean>(false)
-  const url = import.meta.env.VITE_SERVER_URL + endpoint
+  const configStore = useConfigStore()
+  const url = configStore.envConfig.serverUrl + endpoint
 
   const fetchData = async () => {
     try {
