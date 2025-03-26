@@ -65,6 +65,7 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         player2Move.reset()
 
         currentGame.value.round += 1
+        gameDataStore.saveGame()
       }
 
       if (currentPlayerTurn.value === PlayerTurn.Player1) {
@@ -83,7 +84,6 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
           : TurnMode.Attack
       )
     }
-    gameDataStore.saveGame()
   }
 
   return {
