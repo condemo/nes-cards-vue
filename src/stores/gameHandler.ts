@@ -37,6 +37,10 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         currentGame.value.p1stats.intangible += player1Move.intangible
         currentGame.value.p2stats.intangible += player2Move.intangible
 
+        // - Apply Distraction -
+        player1Move.applyDistract(player2Move.distract)
+        player2Move.applyDistract(player1Move.distract)
+
         // - DMG vs DF Moves -
         player1Move.damage = player2Move.applyDefense(player1Move.damage, currentGame.value.p1stats.strength)
         player2Move.damage = player1Move.applyDefense(player2Move.damage, currentGame.value.p1stats.strength)

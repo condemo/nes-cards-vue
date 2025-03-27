@@ -13,7 +13,7 @@ interface DefenseStack {
   peek(): Defense | undefined
   size(): number
   updatePeek(n: number): void
-  distract(): void
+  distract(n: number): void
 }
 
 export class PlayerMove {
@@ -22,6 +22,7 @@ export class PlayerMove {
   strength: number
   intangible: number
   confusion: number
+  distract: number
   poison: number
 
   constructor() {
@@ -45,10 +46,11 @@ export class PlayerMove {
           this.defenseList[this.size() - 1].def = n
         }
       },
-      distract() {
-        let current = this.peek()
-        if (current) {
-          current.active = false
+      distract(n) {
+        if (this.size() >= n) {
+          for (let i = 0; i < n; i++) {
+            this.defenseList[this.size() - 1 - i].active = false
+          }
         }
       },
     }
@@ -56,6 +58,7 @@ export class PlayerMove {
     this.intangible = 0
     this.confusion = 0
     this.poison = 0
+    this.distract = 0
   }
 
   applyDefense(dmg: number[], str: number): number[] {
@@ -97,8 +100,8 @@ export class PlayerMove {
     return dmgCopy
   }
 
-  distract() {
-    this.defense.distract()
+  applyDistract(n: number) {
+    this.defense.distract(n)
   }
 
   reset() {
@@ -107,5 +110,6 @@ export class PlayerMove {
     this.intangible = 0
     this.confusion = 0
     this.poison = 0
+    this.distract = 0
   }
 }
