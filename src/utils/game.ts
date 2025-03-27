@@ -1,4 +1,5 @@
-import type { Game, PlayerMove } from '@/types/game'
+import type { Game } from '@/types/game'
+import { PlayerMove } from '@/game/game'
 
 export function calculateDMG(game: Game, p1move: PlayerMove, p2move: PlayerMove): Game {
   if (game.p1stats.t2hp > 0) {
