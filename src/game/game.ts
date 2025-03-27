@@ -13,6 +13,7 @@ interface DefenseStack {
   peek(): Defense | undefined
   size(): number
   updatePeek(n: number): void
+  distract(): void
 }
 
 export class PlayerMove {
@@ -43,7 +44,13 @@ export class PlayerMove {
         if (this.defenseList.length > 0) {
           this.defenseList[this.size() - 1].def = n
         }
-      }
+      },
+      distract() {
+        let current = this.peek()
+        if (current) {
+          current.active = false
+        }
+      },
     }
     this.strength = 0
     this.intangible = 0
@@ -53,27 +60,45 @@ export class PlayerMove {
 
   applyDefense(dmg: number[], str: number): number[] {
     let dmgCopy = [...dmg]
+    let disabledDefs: Defense[] = []
 
     dmg.some((value, index, array) => {
       let lastDef = this.defense.peek()
       if (lastDef) {
-        let defRest = lastDef.def - (value + str)
-        let dmgRest = -defRest
-        if (defRest <= 0) {
+        if (!lastDef.active) {
+          disabledDefs.push(lastDef)
           this.defense.pop()
-          dmgCopy.shift()
-        } else {
-          if (dmgRest <= 0) {
+          lastDef = this.defense.peek()
+        }
+        if (lastDef) {
+          let defRest = lastDef.def - (value + str)
+          let dmgRest = -defRest
+          if (defRest <= 0) {
+            this.defense.pop()
             dmgCopy.shift()
-          }
-          if (index !== array.length - 1) {
-            this.defense.updatePeek(defRest)
+          } else {
+            if (dmgRest <= 0) {
+              dmgCopy.shift()
+            }
+            if (index !== array.length - 1) {
+              this.defense.updatePeek(defRest)
+            }
           }
         }
       } else { return true }
     })
 
+    // foward removed distracted defs
+    disabledDefs.reverse()
+    disabledDefs.forEach((value) => {
+      this.defense.push(value.def)
+    })
+
     return dmgCopy
+  }
+
+  distract() {
+    this.defense.distract()
   }
 
   reset() {
