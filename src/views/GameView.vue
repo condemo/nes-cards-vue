@@ -16,9 +16,10 @@
       <img src="/img/empty_meme.jpeg" class="w-56 mx-auto" />
       <h1 class="text-3xl font-bold my-2">There is no game yet</h1>
     </div>
-    <GameUpdateModal @close-update-modal="updateModal = false" :current-section="updateSection" :open="updateModal">
+    <GameUpdateModal @close-update-modal="closeUpdateModal" :current-section="updateSection" :open="updateModal">
       <AlteredForm v-if="updateSection === UpdateMode.AlteredEffect" />
-      <DamageForm v-else-if="updateSection === UpdateMode.Damage" />
+      <DamageForm :player-turn="currentPlayerTurn" v-else-if="updateSection === UpdateMode.Damage"
+        @close-update-modal="closeUpdateModal" />
       <DefenseForm v-else="updateSection === UpdateMode.Defense" />
     </GameUpdateModal>
   </div>
@@ -39,7 +40,7 @@ import { useGameHandlerStore } from '@/stores/gameHandler'
 
 const gameDataStore = useGameDataStore()
 const gameHandlerStore = useGameHandlerStore()
-const { roundCount } = storeToRefs(gameHandlerStore)
+const { roundCount, currentPlayerTurn } = storeToRefs(gameHandlerStore)
 const updateSection = ref<UpdateMode>(UpdateMode.Damage)
 const updateModal = ref<boolean>(false)
 
@@ -50,6 +51,10 @@ if (!currentGame.value) {
 
 const nextTurn = () => {
   gameHandlerStore.nextTurn()
+}
+
+const closeUpdateModal = () => {
+  updateModal.value = false
 }
 
 const openModal = (mode: UpdateMode) => {

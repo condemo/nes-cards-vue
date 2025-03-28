@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="text-3xl font-bold">{{ title }}</h3>
+    <h3 class="text-3xl font-bold mb-5">{{ title }}</h3>
     <slot>
       <LoadingSpinner />
     </slot>
