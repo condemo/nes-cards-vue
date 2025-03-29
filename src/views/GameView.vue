@@ -17,7 +17,7 @@
       <h1 class="text-3xl font-bold my-2">There is no game yet</h1>
     </div>
     <GameUpdateModal @close-update-modal="closeUpdateModal" :current-section="updateSection" :open="updateModal">
-      <AlteredForm v-if="updateSection === UpdateMode.AlteredEffect" />
+      <AlteredForm v-if="updateSection === UpdateMode.AlteredEffect" @close-update-modal="closeUpdateModal" />
       <DamageForm :player-turn="currentPlayerTurn" v-else-if="updateSection === UpdateMode.Damage"
         @close-update-modal="closeUpdateModal" />
       <DefenseForm v-else="updateSection === UpdateMode.Defense" />
