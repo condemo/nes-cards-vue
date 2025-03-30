@@ -20,13 +20,21 @@ import { ref, watch } from 'vue';
 const emits = defineEmits(['close-update-modal'])
 
 const gameHandlerStore = useGameHandlerStore()
-const { currentPlayerTurn } = storeToRefs(gameHandlerStore)
+const { currentPlayerTurn, turnMode } = storeToRefs(gameHandlerStore)
 const dmg = ref<number>(0)
 const dmgList = ref<number[]>([])
 
-watch(() => currentPlayerTurn.value, () => {
+const reset = () => {
   dmgList.value.splice(0)
   dmg.value = 0
+}
+
+watch(() => currentPlayerTurn.value, () => {
+  reset()
+})
+
+watch(() => turnMode.value, () => {
+  reset()
 })
 
 const add = () => {

@@ -41,7 +41,7 @@ import { storeToRefs } from 'pinia';
 import { reactive, watch } from 'vue';
 
 const gameHandlerStore = useGameHandlerStore()
-const { currentPlayerTurn, player1Move, player2Move } = storeToRefs(gameHandlerStore)
+const { currentPlayerTurn, player1Move, player2Move, turnMode } = storeToRefs(gameHandlerStore)
 const emits = defineEmits(['close-update-modal'])
 
 const move = reactive({
@@ -66,6 +66,11 @@ watch(() => currentPlayerTurn.value, () => {
   )
   resetMove()
 })
+
+watch(() => turnMode.value, () => {
+  resetMove()
+})
+
 
 const resetMove = () => {
   // NOTE: awfull reset
