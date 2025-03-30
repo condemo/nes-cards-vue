@@ -19,7 +19,7 @@
     <GameUpdateModal @close-update-modal="closeUpdateModal" :current-section="updateSection" :open="updateModal">
       <AlteredForm v-if="updateSection === UpdateMode.AlteredEffect" @close-update-modal="closeUpdateModal" />
       <DamageForm v-else-if="updateSection === UpdateMode.Damage" @close-update-modal="closeUpdateModal" />
-      <DefenseForm v-else="updateSection === UpdateMode.Defense" />
+      <DefenseForm v-else="updateSection === UpdateMode.Defense" @close-update-modal="closeUpdateModal" />
     </GameUpdateModal>
   </div>
 </template>
@@ -39,7 +39,7 @@ import { useGameHandlerStore } from '@/stores/gameHandler'
 
 const gameDataStore = useGameDataStore()
 const gameHandlerStore = useGameHandlerStore()
-const { roundCount, currentPlayerTurn } = storeToRefs(gameHandlerStore)
+const { roundCount } = storeToRefs(gameHandlerStore)
 const updateSection = ref<UpdateMode>(UpdateMode.Damage)
 const updateModal = ref<boolean>(false)
 
