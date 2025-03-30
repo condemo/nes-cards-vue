@@ -31,6 +31,18 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     }
   }
 
+  const updateDEF = (n: number[]): void => {
+    if (currentPlayerTurn.value === PlayerTurn.Player1) {
+      n.forEach((value) => {
+        player1Move.defense.push(value)
+      })
+    } else {
+      n.forEach((value) => {
+        player2Move.defense.push(value)
+      })
+    }
+  }
+
   const nextTurn = () => {
     if (currentGame.value) {
       if (turnMode.value === TurnMode.Defense) {
@@ -103,6 +115,7 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     player1Move,
     player2Move,
     updateDMG,
+    updateDEF,
     turnMode,
     roundCount,
     nextTurn,
