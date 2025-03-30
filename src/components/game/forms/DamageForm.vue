@@ -14,18 +14,17 @@
 
 <script setup lang="ts">
 import { useGameHandlerStore } from '@/stores/gameHandler';
+import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 
 const emits = defineEmits(['close-update-modal'])
-const props = defineProps({
-  playerTurn: { type: Number }
-})
 
 const gameHandlerStore = useGameHandlerStore()
+const { currentPlayerTurn } = storeToRefs(gameHandlerStore)
 const dmg = ref<number>(0)
 const dmgList = ref<number[]>([])
 
-watch(() => props.playerTurn, () => {
+watch(() => currentPlayerTurn.value, () => {
   dmgList.value.splice(0)
   dmg.value = 0
 })
