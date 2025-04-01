@@ -1,13 +1,13 @@
 import { defineStore, storeToRefs } from "pinia";
 import { PlayerTurn, TurnMode } from '@/types/game'
 import { PlayerMove } from '@/game/game'
-import { computed, shallowReactive } from "vue";
+import { computed, reactive } from "vue";
 import { useGameDataStore } from "./gameData";
 import { calculateDMG } from "@/utils/game";
 
 export const useGameHandlerStore = defineStore('gameHandler', () => {
-  const player1Move = shallowReactive<PlayerMove>(new PlayerMove)
-  const player2Move = shallowReactive<PlayerMove>(new PlayerMove)
+  const player1Move = reactive<PlayerMove>(new PlayerMove)
+  const player2Move = reactive<PlayerMove>(new PlayerMove)
 
   const gameDataStore = useGameDataStore()
   const { currentGame } = storeToRefs(gameDataStore)
