@@ -9,8 +9,8 @@
         <PlayerStat :player-position="PlayerTurn.Player2" :player="currentGame.player2"
           :player-stats="currentGame.p2stats" @open-update-modal="openModal" />
       </div>
-      <!-- TODO: Resume Section... -->
       <button @click="nextTurn" class="btn btn-primary text-xl font-bold">Next Turn</button>
+      <MoveResumeSection />
     </div>
     <div v-else id="empty-view">
       <img src="/img/empty_meme.jpeg" class="w-56 mx-auto" />
@@ -33,6 +33,7 @@ import { PlayerTurn, UpdateMode } from '@/types/game'
 import AlteredForm from '@/components/game/forms/AlteredForm.vue'
 import DamageForm from '@/components/game/forms/DamageForm.vue'
 import DefenseForm from '@/components/game/forms/DefenseForm.vue'
+import MoveResumeSection from '@/components/game/MoveResumeSection.vue'
 import { ref } from 'vue'
 import { useGameDataStore } from '@/stores/gameData'
 import { useGameHandlerStore } from '@/stores/gameHandler'
