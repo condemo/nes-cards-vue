@@ -48,5 +48,6 @@ const add = () => {
 const save = () => {
   gameHandlerStore.updateDEF(defList.value)
   emits('close-update-modal')
+  reset()
 }
 </script>
