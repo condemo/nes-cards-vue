@@ -11,10 +11,20 @@
       </div>
     </div>
   </div>
+  <div v-if="defs">
+    <p v-for="d, i in defense" :key="i" class="font-bold">DF:{{ d }}</p>
+  </div>
 </template>
 
 <script setup lang="ts">
-defineProps({
+import { computed } from 'vue';
+
+const props = defineProps({
   thp: { type: Number },
+  defs: { type: String },
+})
+
+const defense = computed(() => {
+  return props.defs?.split(",").map(Number)
 })
 </script>

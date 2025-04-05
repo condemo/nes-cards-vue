@@ -17,10 +17,19 @@
         </div>
       </div>
     </div>
+    <div class="font-bold">
+      <p>
+        <span>ST:{{ playerStats?.strength }}</span>
+        |
+        <span>IN:{{ playerStats?.intangible }}</span>
+        |
+        <span>CON:{{ playerStats?.confusion }}</span>
+      </p>
+    </div>
     <UpdateMenu v-show="playerMenu" :player="true" @open-update-modal="openUpdateModal" />
     <div class="divider"></div>
     <TowerStat :thp="playerStats?.t1hp" />
-    <TowerStat :thp="playerStats?.t2hp" />
+    <TowerStat :thp="playerStats?.t2hp" :defs="playerStats?.defenses" />
   </div>
 </template>
 
