@@ -61,6 +61,24 @@ export class PlayerMove {
     this.distract = 0
   }
 
+  loadDefenses(defs?: string): void {
+    if (defs) {
+      defs.split(",").map(Number).forEach((value) => {
+        this.defense.push(value)
+      })
+    }
+  }
+
+  getDefValue(): number[] {
+    let defValues: number[] = []
+
+    this.defense.defenseList.forEach((value) => {
+      defValues.push(value.def)
+    })
+
+    return defValues
+  }
+
   applyDefense(dmg: number[], str: number): number[] {
     let dmgCopy = [...dmg]
     let disabledDefs: Defense[] = []
