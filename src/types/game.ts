@@ -13,6 +13,7 @@ export interface PlayerStats {
   strength: number
   intangible: number
   confusion: number
+  defenses: string
 }
 
 export interface GameSetup {
