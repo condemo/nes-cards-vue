@@ -12,6 +12,17 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
   const gameDataStore = useGameDataStore()
   const { currentGame } = storeToRefs(gameDataStore)
 
+  // NOTE: Se puede mejorar mucho buscando la manera de mantener las defensas en las stats
+  // y no en los `moves`
+
+  // loads defenses from game into moves
+  const loadDataFromGame = () => {
+    const p1def = currentGame.value?.p1stats.defenses
+    const p2def = currentGame.value?.p2stats.defenses
+    player1Move.loadDefenses(p1def)
+    player2Move.loadDefenses(p2def)
+  }
+
   // computed data from currentGame for cleaner use
   const roundCount = computed(() => {
     return currentGame.value?.round
@@ -85,6 +96,10 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
           currentGame.value.p2stats.intangible -= 1
         }
 
+        // update the remaining def into `Game.Stats` before saving
+        currentGame.value.p1stats.defenses = player1Move.getDefValue().toString()
+        currentGame.value.p2stats.defenses = player2Move.getDefValue().toString()
+
         player1Move.reset()
         player2Move.reset()
 
@@ -116,6 +131,7 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     player2Move,
     updateDMG,
     updateDEF,
+    loadDataFromGame,
     turnMode,
     roundCount,
     nextTurn,
