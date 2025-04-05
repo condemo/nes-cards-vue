@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-1">
     <LoadingSpinner v-if="loading" />
     <div v-else-if="currentGame" id="current-game" class="flex flex-col mx-1">
       <h1 class="text-2xl">Round: {{ roundCount }}</h1>

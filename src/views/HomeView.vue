@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-1">
     <div id="front-view" class="flex flex-col space-y-5">
       <h1 class="text-4xl font-bold">HOME</h1>
       <div>
