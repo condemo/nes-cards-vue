@@ -34,7 +34,7 @@ import AlteredForm from '@/components/game/forms/AlteredForm.vue'
 import DamageForm from '@/components/game/forms/DamageForm.vue'
 import DefenseForm from '@/components/game/forms/DefenseForm.vue'
 import MoveResumeSection from '@/components/game/MoveResumeSection.vue'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { useGameDataStore } from '@/stores/gameData'
 import { useGameHandlerStore } from '@/stores/gameHandler'
 
@@ -45,9 +45,12 @@ const updateSection = ref<UpdateMode>(UpdateMode.Damage)
 const updateModal = ref<boolean>(false)
 
 const { currentGame, loading } = storeToRefs(gameDataStore)
-if (!currentGame.value) {
-  gameDataStore.setLastGame()
-}
+onBeforeMount(async () => {
+  if (!currentGame.value) {
+    await gameDataStore.setLastGame()
+  }
+  gameHandlerStore.loadDataFromGame()
+})
 
 const nextTurn = () => {
   gameHandlerStore.nextTurn()
