@@ -43,14 +43,18 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
   }
 
   const updateDEF = (n: number[]): void => {
-    if (currentPlayerTurn.value === PlayerTurn.Player1) {
-      n.forEach((value) => {
-        player1Move.defense.push(value)
-      })
-    } else {
-      n.forEach((value) => {
-        player2Move.defense.push(value)
-      })
+    if (currentGame.value) {
+      if (currentPlayerTurn.value === PlayerTurn.Player1) {
+        n.forEach((value) => {
+          player1Move.defense.push(value)
+        })
+      } else {
+        n.forEach((value) => {
+          player2Move.defense.push(value)
+        })
+      }
+      currentGame.value.p1stats.defenses = player1Move.getDefValue().toString()
+      currentGame.value.p2stats.defenses = player2Move.getDefValue().toString()
     }
   }
 
@@ -100,8 +104,8 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         }
 
         // update the remaining def into `Game.Stats` before saving
-        currentGame.value.p1stats.defenses = player1Move.getDefValue().toString()
-        currentGame.value.p2stats.defenses = player2Move.getDefValue().toString()
+        // currentGame.value.p1stats.defenses = player1Move.getDefValue().toString()
+        // currentGame.value.p2stats.defenses = player2Move.getDefValue().toString()
 
         player1Move.reset()
         player2Move.reset()
