@@ -54,20 +54,23 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     }
   }
 
+  const updatePlayerStats = (stats: { confusion: number, strength: number, intangible: number }): void => {
+    if (currentGame.value) {
+      if (currentPlayerTurn.value === PlayerTurn.Player1) {
+        currentGame.value.p1stats.confusion += stats.confusion
+        currentGame.value.p1stats.strength += stats.strength
+        currentGame.value.p1stats.intangible += stats.intangible
+      } else {
+        currentGame.value.p2stats.confusion += stats.confusion
+        currentGame.value.p2stats.strength += stats.strength
+        currentGame.value.p2stats.intangible += stats.intangible
+      }
+    }
+  }
+
   const nextTurn = () => {
     if (currentGame.value) {
       if (turnMode.value === TurnMode.Defense) {
-        // - Apply Effects -
-        // confusion
-        currentGame.value.p1stats.confusion += player1Move.confusion
-        currentGame.value.p2stats.confusion += player2Move.confusion
-        // strength
-        currentGame.value.p1stats.strength += player1Move.strength
-        currentGame.value.p2stats.strength += player2Move.strength
-        // intangible
-        currentGame.value.p1stats.intangible += player1Move.intangible
-        currentGame.value.p2stats.intangible += player2Move.intangible
-
         // - Apply Distraction -
         player1Move.applyDistract(player2Move.distract)
         player2Move.applyDistract(player1Move.distract)
@@ -131,6 +134,7 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     player2Move,
     updateDMG,
     updateDEF,
+    updatePlayerStats,
     loadDataFromGame,
     turnMode,
     roundCount,
