@@ -40,8 +40,8 @@ export interface Game {
 
 export enum UpdateMode {
   Damage = "Damage",
-  AlteredEffect = "Altered Effect",
-  Defense = "Defense"
+  Stats = "Stats",
+  Misc = "Others"
 }
 
 export enum PlayerTurn {
