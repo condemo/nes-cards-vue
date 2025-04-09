@@ -17,9 +17,9 @@
       <h1 class="text-3xl font-bold my-2">There is no game yet</h1>
     </div>
     <GameUpdateModal @close-update-modal="closeUpdateModal" :current-section="updateSection" :open="updateModal">
-      <AlteredForm v-if="updateSection === UpdateMode.AlteredEffect" @close-update-modal="closeUpdateModal" />
+      <MiscForm v-if="updateSection === UpdateMode.Misc" @close-update-modal="closeUpdateModal" />
       <DamageForm v-else-if="updateSection === UpdateMode.Damage" @close-update-modal="closeUpdateModal" />
-      <DefenseForm v-else="updateSection === UpdateMode.Defense" @close-update-modal="closeUpdateModal" />
+      <StatsForm v-else="updateSection === UpdateMode.Stats" @close-update-modal="closeUpdateModal" />
     </GameUpdateModal>
   </div>
 </template>
@@ -30,9 +30,9 @@ import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import PlayerStat from '@/components/PlayerStat.vue'
 import GameUpdateModal from '@/components/game/GameUpdateModal.vue'
 import { PlayerTurn, UpdateMode } from '@/types/game'
-import AlteredForm from '@/components/game/forms/AlteredForm.vue'
+import MiscForm from '@/components/game/forms/MiscForm.vue'
 import DamageForm from '@/components/game/forms/DamageForm.vue'
-import DefenseForm from '@/components/game/forms/DefenseForm.vue'
+import StatsForm from '@/components/game/forms/StatsForm.vue'
 import MoveResumeSection from '@/components/game/MoveResumeSection.vue'
 import { onBeforeMount, ref } from 'vue'
 import { useGameDataStore } from '@/stores/gameData'
