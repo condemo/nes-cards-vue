@@ -132,6 +132,11 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     }
   }
 
+  const fullResetMoves = () => {
+    player1Move.fullReset()
+    player2Move.fullReset()
+  }
+
   return {
     currentPlayerTurn,
     player1Move,
@@ -143,5 +148,6 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     turnMode,
     roundCount,
     nextTurn,
+    fullResetMoves,
   }
 })

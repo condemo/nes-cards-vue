@@ -99,9 +99,11 @@ import { useRouter } from 'vue-router'
 import NewPlayerModal from '@/components/NewPlayerModal.vue'
 import { useGameDataStore } from '@/stores/gameData'
 import { storeToRefs } from 'pinia'
+import { useGameHandlerStore } from '@/stores/gameHandler'
 
 const router = useRouter()
 const gameDataStore = useGameDataStore()
+const gameHandlerStore = useGameHandlerStore()
 const { playerList, apiError: newPlayerError } = storeToRefs(gameDataStore)
 
 const game = reactive<GameSetup>({
@@ -127,6 +129,7 @@ const addPlayer = async (name: string) => {
 
 const createGame = () => {
   gameDataStore.createGame(game)
+  gameHandlerStore.fullResetMoves()
   router.replace('/game')
 }
 </script>
