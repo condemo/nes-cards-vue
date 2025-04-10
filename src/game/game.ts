@@ -19,9 +19,6 @@ interface DefenseStack {
 export class PlayerMove {
   damage: number[]
   defense: DefenseData
-  strength: number
-  intangible: number
-  confusion: number
   distract: number
   poison: number
 
@@ -54,9 +51,6 @@ export class PlayerMove {
         }
       },
     }
-    this.strength = 0
-    this.intangible = 0
-    this.confusion = 0
     this.poison = 0
     this.distract = 0
   }
@@ -124,10 +118,15 @@ export class PlayerMove {
 
   reset() {
     this.damage.splice(0)
-    this.strength = 0
-    this.intangible = 0
-    this.confusion = 0
     this.poison = 0
     this.distract = 0
+  }
+
+  fullReset() {
+
+    this.damage.splice(0)
+    this.poison = 0
+    this.distract = 0
+    this.defense.defenseList.splice(0)
   }
 }
