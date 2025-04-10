@@ -1,5 +1,5 @@
 <template>
-  <div id="defense-form" class="flex flex-col space-y-2 w-full">
+  <div id="stats-form" class="flex flex-col space-y-2 w-full">
     <div class="flex flex-row space-x-5 mx-auto text-2xl">
       <label for="st">ST:</label>
       <button class="btn btn-circle btn-secondary" @click="move.strength--">-</button>
@@ -18,14 +18,6 @@
       <label @click="move.confusion = 0">{{ move.confusion }}</label>
       <button class="btn btn-circle btn-secondary" @click="move.confusion++">+</button>
     </div>
-    <div class="flex flex-row space-x-5 mx-auto text-2xl">
-      <label>DEF:</label>
-      <button class="btn btn-circle btn-secondary" @click="defCount--">-</button>
-      <label @click="defCount = 0">{{ defCount }}</label>
-      <button class="btn btn-circle btn-secondary" @click="defCount++">+</button>
-      <button class="btn btn-success" @click="addtoDef">Add</button>
-    </div>
-    <p>new def:{{ defList }}</p>
     <div class="flex flex-row justify-around p-2 mt-2">
       <button class="btn btn-error w-1/6" @click="reset">reset</button>
       <button class="btn btn-primary w-4/6" @click="save">Save</button>
@@ -36,15 +28,12 @@
 <script setup lang="ts">
 import { useGameHandlerStore } from '@/stores/gameHandler';
 import { storeToRefs } from 'pinia';
-import { reactive, ref, watch } from 'vue';
+import { reactive, watch } from 'vue';
 
 const emits = defineEmits(['close-update-modal'])
 
 const gameHandlerStore = useGameHandlerStore()
 const { currentPlayerTurn, turnMode } = storeToRefs(gameHandlerStore)
-
-const defList = ref<number[]>([])
-const defCount = ref<number>(0)
 
 const move = reactive({
   intangible: 0,
@@ -56,16 +45,8 @@ const reset = () => {
   move.strength = 0
   move.confusion = 0
   move.intangible = 0
-  defList.value.splice(0)
-  defCount.value = 0
 }
 
-const addtoDef = () => {
-  if (defCount.value > 0) {
-    defList.value.push(defCount.value)
-  }
-  defCount.value = 0
-}
 
 watch(() => currentPlayerTurn.value, () => {
   reset()
@@ -77,7 +58,6 @@ watch(() => turnMode.value, () => {
 
 const save = () => {
   gameHandlerStore.updatePlayerStats(move)
-  gameHandlerStore.updateDEF(defList.value)
   emits('close-update-modal')
   reset()
 }
