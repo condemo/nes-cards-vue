@@ -10,7 +10,6 @@
           </svg>
         </a>
       </li>
-      <!-- TODO: Cambiar los update modes después de hacer cambios en el menu -->
       <li @click="$emit('open-update-modal', UpdateMode.Stats)">
         <a class="tooltip tooltip-bottom" data-tip="Stats">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
