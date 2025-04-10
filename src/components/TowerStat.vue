@@ -1,5 +1,5 @@
 <template>
-  <div class="stats shadow w-28 h-24 rounded-full mx-auto bg-base-300">
+  <div @click="openModal" class="stats shadow w-28 h-24 rounded-full mx-auto bg-base-300">
     <div class="stat">
       <div class="flex flex-col items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6">
@@ -17,7 +17,10 @@
 </template>
 
 <script setup lang="ts">
+import { UpdateMode } from '@/types/game';
 import { computed } from 'vue';
+
+const emits = defineEmits(['open-update-modal'])
 
 const props = defineProps({
   thp: { type: Number },
@@ -27,4 +30,8 @@ const props = defineProps({
 const defense = computed(() => {
   return props.defs?.split(",").map(Number)
 })
+
+const openModal = () => {
+  emits('open-update-modal', UpdateMode.Defense)
+}
 </script>
