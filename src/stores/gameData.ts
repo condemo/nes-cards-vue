@@ -47,7 +47,7 @@ export const useGameDataStore = defineStore('gameData', () => {
 
   const saveGame = async () => {
     if (currentGame.value) {
-      useUpdateGame(currentGame.value)
+      await useUpdateGame(currentGame.value)
       localStorage.setItem('lastGame', JSON.stringify(currentGame.value))
     } else {
       console.log("error -> no game")
