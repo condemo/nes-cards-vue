@@ -67,8 +67,11 @@
     <UpdateMenu v-show="playerMenu" :player="true" @open-update-modal="openUpdateModal" />
     <div class="divider"></div>
     <!-- TODO: Hacer dinámico la carga de defensas -->
-    <TowerStat :thp="playerStats?.t1hp" @open-update-modal="openUpdateModal" />
-    <TowerStat :thp="playerStats?.t2hp" :defs="playerStats?.defenses" @open-update-modal="openUpdateModal" />
+    <TowerStat :thp="playerStats?.t1hp"
+      :defs="playerStats?.t2hp === 0 && playerStats.t1hp > 0 ? playerStats.defenses : undefined"
+      @open-update-modal="openUpdateModal" />
+    <TowerStat :thp="playerStats?.t2hp" :defs="checkTowerHP() ? playerStats?.defenses : undefined"
+      @open-update-modal="openUpdateModal" />
   </div>
 </template>
 
@@ -98,6 +101,15 @@ const emit = defineEmits(['open-update-modal'])
 const playerMenu = computed(() => {
   return currentPlayerTurn.value === props.playerPosition
 })
+
+const checkTowerHP = (): boolean => {
+  if (props.playerStats) {
+    if (props.playerStats.t2hp > 0) {
+      return true
+    }
+  }
+  return false
+}
 
 const openUpdateModal = (mode: UpdateMode) => {
   emit('open-update-modal', mode)
