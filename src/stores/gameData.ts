@@ -1,6 +1,5 @@
 import { useFetch } from "@/composables/useFetch";
-import { useUpdateGame } from "@/composables/useGame";
-import { useCreateGame, useCreatePlayer, useGetLastGame } from "@/composables/useGame";
+import { useCreateGame, useCreatePlayer, useGetLastGame, useUpdateGame } from "@/composables/useGame";
 import type { ApiError } from "@/types/apiCom";
 import type { Game, GameSetup, Player } from "@/types/game";
 import { defineStore } from "pinia";
