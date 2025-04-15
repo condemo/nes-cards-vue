@@ -16,6 +16,7 @@ import type { PropType } from 'vue'
 import SimplePlayerStat from './partials/SimplePlayerStat.vue'
 import { useRouter } from 'vue-router'
 import { useGameDataStore } from '@/stores/gameData'
+import { useGameHandlerStore } from '@/stores/gameHandler'
 
 const props = defineProps({
   game: {
@@ -29,10 +30,12 @@ const m = date.getMonth() + 1
 const formatedDate = date.getDate() + '/' + m + '/' + date.getFullYear()
 
 const gameDataStore = useGameDataStore()
+const gameHandlerStore = useGameHandlerStore()
 const router = useRouter()
 
 const setCurrentGame = () => {
-  gameDataStore.currentGame = props.game
+  gameHandlerStore.fullResetMoves()
+  gameDataStore.setCurrentGame(props.game)
   router.push('/game')
 }
 </script>

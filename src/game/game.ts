@@ -123,10 +123,7 @@ export class PlayerMove {
   }
 
   fullReset() {
-
-    this.damage.splice(0)
-    this.poison = 0
-    this.distract = 0
+    this.reset()
     this.defense.defenseList.splice(0)
   }
 }

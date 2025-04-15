@@ -40,6 +40,11 @@ export const useGameDataStore = defineStore('gameData', () => {
     }
   }
 
+  const setCurrentGame = (game: Game) => {
+    localStorage.setItem('lastGame', JSON.stringify(game))
+    currentGame.value = game
+  }
+
   const saveGame = async () => {
     if (currentGame.value) {
       useUpdateGame(currentGame.value)
@@ -57,6 +62,7 @@ export const useGameDataStore = defineStore('gameData', () => {
     createPlayer,
     createGame,
     setLastGame,
+    setCurrentGame,
     saveGame,
   }
 })
