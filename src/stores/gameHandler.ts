@@ -110,6 +110,12 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         player1Move.reset()
         player2Move.reset()
 
+        if (currentGame.value.p1stats.hp === 0) {
+          currentGame.value.winner = currentGame.value.player2.name
+        } else if (currentGame.value.p2stats.hp === 0) {
+          currentGame.value.winner = currentGame.value.player1.name
+        }
+
         currentGame.value.round += 1
         gameDataStore.saveGame()
       }

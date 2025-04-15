@@ -16,6 +16,7 @@
       <img src="/img/empty_meme.jpeg" class="w-56 mx-auto" />
       <h1 class="text-3xl font-bold my-2">There is no game yet</h1>
     </div>
+    <WinModal v-if="currentGame?.winner !== 'none'" :winner="currentGame?.winner" />
     <GameUpdateModal @close-update-modal="closeUpdateModal" :current-section="updateSection" :open="updateModal">
       <MiscForm v-if="updateSection === UpdateMode.Misc" @close-update-modal="closeUpdateModal" />
       <DamageForm v-else-if="updateSection === UpdateMode.Damage" @close-update-modal="closeUpdateModal" />
@@ -39,6 +40,7 @@ import MoveResumeSection from '@/components/game/MoveResumeSection.vue'
 import { onBeforeMount, ref } from 'vue'
 import { useGameDataStore } from '@/stores/gameData'
 import { useGameHandlerStore } from '@/stores/gameHandler'
+import WinModal from '@/components/WinModal.vue'
 
 const gameDataStore = useGameDataStore()
 const gameHandlerStore = useGameHandlerStore()
