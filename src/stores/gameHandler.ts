@@ -104,8 +104,8 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
         }
 
         // update the remaining def into `Game.Stats` before saving
-        // currentGame.value.p1stats.defenses = player1Move.getDefValue().toString()
-        // currentGame.value.p2stats.defenses = player2Move.getDefValue().toString()
+        currentGame.value.p1stats.defenses = player1Move.getDefValue().toString()
+        currentGame.value.p2stats.defenses = player2Move.getDefValue().toString()
 
         player1Move.reset()
         player2Move.reset()
