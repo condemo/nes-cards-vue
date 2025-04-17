@@ -18,7 +18,7 @@
           </svg>
         </a>
       </li>
-      <li v-if="player" @click="$emit('open-update-modal', UpdateMode.Misc)">
+      <li @click="$emit('open-update-modal', UpdateMode.Misc)">
         <a class="tooltip tooltip-bottom" data-tip="Altered Effects">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
             <path fill-rule="evenodd"
@@ -33,7 +33,4 @@
 
 <script setup lang="ts">
 import { UpdateMode } from '@/types/game'
-defineProps({
-  player: { type: Boolean }
-})
 </script>

@@ -64,7 +64,7 @@
         <span> {{ playerStats?.confusion }}</span>
       </div>
     </div>
-    <UpdateMenu v-show="playerMenu" :player="true" @open-update-modal="openUpdateModal" />
+    <UpdateMenu v-show="playerMenu" @open-update-modal="openUpdateModal" />
     <div class="divider"></div>
     <!-- TODO: Hacer dinámico la carga de defensas -->
     <TowerStat :thp="playerStats?.t1hp"
