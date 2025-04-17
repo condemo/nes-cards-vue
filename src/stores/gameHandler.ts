@@ -72,6 +72,18 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     }
   }
 
+  const updateRivalStats = (stats: { confusion: number, strength: number }): void => {
+    if (currentGame.value) {
+      if (currentPlayerTurn.value === PlayerTurn.Player2) {
+        currentGame.value.p1stats.confusion += stats.confusion
+        currentGame.value.p1stats.strength += stats.strength
+      } else {
+        currentGame.value.p2stats.confusion += stats.confusion
+        currentGame.value.p2stats.strength += stats.strength
+      }
+    }
+  }
+
   const nextTurn = () => {
     if (currentGame.value) {
       if (turnMode.value === TurnMode.Defense) {
@@ -150,6 +162,7 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     updateDMG,
     updateDEF,
     updatePlayerStats,
+    updateRivalStats,
     loadDataFromGame,
     turnMode,
     roundCount,

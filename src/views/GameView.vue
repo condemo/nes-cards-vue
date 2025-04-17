@@ -21,7 +21,8 @@
       <MiscForm v-if="updateSection === UpdateMode.Misc" @close-update-modal="closeUpdateModal" />
       <DamageForm v-else-if="updateSection === UpdateMode.Damage" @close-update-modal="closeUpdateModal" />
       <StatsForm v-else-if="updateSection === UpdateMode.Stats" @close-update-modal="closeUpdateModal" />
-      <DefenseForm v-else="updateSection === UpdateMode.Defense" @close-update-modal="closeUpdateModal" />
+      <DefenseForm v-else-if="updateSection === UpdateMode.Defense" @close-update-modal="closeUpdateModal" />
+      <RivalForm v-else @close-update-modal="closeUpdateModal" />
     </GameUpdateModal>
   </div>
 </template>
@@ -36,6 +37,7 @@ import MiscForm from '@/components/game/forms/MiscForm.vue'
 import DamageForm from '@/components/game/forms/DamageForm.vue'
 import StatsForm from '@/components/game/forms/StatsForm.vue'
 import DefenseForm from '@/components/game/forms/DefenseForm.vue'
+import RivalForm from '@/components/game/forms/RivalForm.vue'
 import MoveResumeSection from '@/components/game/MoveResumeSection.vue'
 import { onBeforeMount, ref } from 'vue'
 import { useGameDataStore } from '@/stores/gameData'
