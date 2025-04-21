@@ -5,9 +5,9 @@
       <h1 class="text-2xl">Round: {{ roundCount }}</h1>
       <div id="players-stats" class="flex flex-row justify-evenly m-2 w-full p-1 mx-auto">
         <PlayerStat :player-position="PlayerTurn.Player1" :player="currentGame.player1"
-          :player-stats="currentGame.p1stats" @open-update-modal="openModal" />
+          :player-stats="currentGame.p1stats" @open-update-modal="openUpdateModal" />
         <PlayerStat :player-position="PlayerTurn.Player2" :player="currentGame.player2"
-          :player-stats="currentGame.p2stats" @open-update-modal="openModal" />
+          :player-stats="currentGame.p2stats" @open-update-modal="openUpdateModal" />
       </div>
       <button @click="nextTurn" class="btn btn-primary text-xl font-bold">Next Turn</button>
       <MoveResumeSection />
@@ -66,7 +66,7 @@ const closeUpdateModal = () => {
   updateModal.value = false
 }
 
-const openModal = (mode: UpdateMode) => {
+const openUpdateModal = (mode: UpdateMode) => {
   updateModal.value = true
   updateSection.value = mode
 }
