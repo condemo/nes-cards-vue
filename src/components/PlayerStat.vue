@@ -7,7 +7,7 @@
         ? 'border-primary'
         : 'border-secondary'
     ]">
-      <div class="stat">
+      <div class="stat" @click="openHPModal">
         <div class="stat-title text-accent text-xl font-bold">
           <div class="flex flex-row justify-center">
             <p>{{ player?.name }} &nbsp;</p>
@@ -65,6 +65,7 @@
       </div>
     </div>
     <UpdateMenu v-show="playerMenu" @open-update-modal="openUpdateModal" />
+    <HPForm :open="hpModal" @close-hp-modal="closeHPModal" />
     <div class="divider"></div>
     <!-- TODO: Hacer dinámico la carga de defensas -->
     <TowerStat :thp="playerStats?.t1hp"
@@ -76,10 +77,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType } from 'vue'
+import { computed, ref, type PropType } from 'vue'
 import type { Player, PlayerStats, PlayerTurn } from '@/types/game'
 import TowerStat from './TowerStat.vue'
 import UpdateMenu from './game/UpdateMenu.vue';
+import HPForm from './game/forms/HPForm.vue';
 import { TurnMode, UpdateMode } from '@/types/game'
 import { useGameHandlerStore } from '@/stores/gameHandler';
 import { storeToRefs } from 'pinia';
@@ -97,7 +99,10 @@ const props = defineProps({
 const gameHandlerStore = useGameHandlerStore()
 const { currentPlayerTurn, turnMode } = storeToRefs(gameHandlerStore)
 
-const emit = defineEmits(['open-update-modal'])
+const emit = defineEmits(['open-update-modal', 'open-hp-modal'])
+
+const hpModal = ref<boolean>(false)
+
 const playerMenu = computed(() => {
   return currentPlayerTurn.value === props.playerPosition
 })
@@ -113,5 +118,12 @@ const checkTowerHP = (): boolean => {
 
 const openUpdateModal = (mode: UpdateMode) => {
   emit('open-update-modal', mode)
+}
+
+const openHPModal = () => {
+  hpModal.value = true
+}
+const closeHPModal = () => {
+  hpModal.value = false
 }
 </script>
