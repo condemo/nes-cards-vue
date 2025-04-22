@@ -25,15 +25,21 @@
 </template>
 
 <script setup lang="ts">
-import { UpdateMode } from '@/types/game';
-import { computed, reactive } from 'vue';
+import { useGameHandlerStore } from '@/stores/gameHandler';
+import { PlayerTurn, UpdateMode } from '@/types/game';
+import { storeToRefs } from 'pinia';
+import { computed, reactive, type PropType } from 'vue';
 
 const emits = defineEmits(['open-update-modal'])
 
 const props = defineProps({
   thp: { type: Number },
   defs: { type: String },
+  playerPosition: { type: Number as PropType<PlayerTurn>, required: true }
 })
+
+const gameHandler = useGameHandlerStore()
+const { currentPlayerTurn } = storeToRefs(gameHandler)
 
 const defense = computed(() => {
   return props.defs?.split(",").map(Number)
@@ -49,7 +55,8 @@ const checkHP = computed(() => {
 })
 
 const openModal = () => {
-  emits('open-update-modal', UpdateMode.Defense)
+  if (props.playerPosition === currentPlayerTurn.value && props.thp || 0 > 0)
+    emits('open-update-modal', UpdateMode.Defense)
 }
 
 const colors = reactive({

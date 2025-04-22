@@ -70,9 +70,9 @@
     <!-- TODO: Hacer dinámico la carga de defensas -->
     <TowerStat :thp="playerStats?.t1hp"
       :defs="playerStats?.t2hp === 0 && playerStats.t1hp > 0 ? playerStats.defenses : undefined"
-      @open-update-modal="openUpdateModal" />
+      :player-position="playerPosition" @open-update-modal="openUpdateModal" />
     <TowerStat :thp="playerStats?.t2hp" :defs="checkTowerHP() ? playerStats?.defenses : undefined"
-      @open-update-modal="openUpdateModal" />
+      :player-position="playerPosition" @open-update-modal="openUpdateModal" />
   </div>
 </template>
 
