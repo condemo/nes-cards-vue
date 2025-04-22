@@ -9,6 +9,7 @@
         <button class="btn btn-circle btn-secondary" @click="demoCount += 1">+1</button>
         <button class="btn btn-circle btn-secondary" @click="demoCount += 10">+10</button>
       </div>
+      <button class="btn btn-primary" @click="saveHP">Save</button>
     </div>
     <form method="dialog" class="modal-backdrop">
       <button @click="close">close</button>
@@ -17,16 +18,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useGameHandlerStore } from '@/stores/gameHandler'
+import { storeToRefs } from 'pinia'
+import { ref, watch } from 'vue'
 
 defineProps({
   open: { type: Boolean }
 })
 
+const gameHandler = useGameHandlerStore()
+const { currentPlayerHP } = storeToRefs(gameHandler)
+
 const emits = defineEmits(['close-hp-modal'])
-const demoCount = ref<number>(60)
+const demoCount = ref<number>(currentPlayerHP.value || 0)
+
+watch(currentPlayerHP, () => {
+  demoCount.value = currentPlayerHP.value || 0
+})
 
 const close = () => {
   emits('close-hp-modal')
+  demoCount.value = currentPlayerHP.value || 0
+}
+
+const saveHP = () => {
+  gameHandler.updateCurrentHP(demoCount.value)
+  close()
 }
 </script>

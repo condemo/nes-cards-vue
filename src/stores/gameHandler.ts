@@ -34,6 +34,14 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     return currentGame.value?.turnMode
   })
 
+  const currentPlayerHP = computed(() => {
+    if (currentPlayerTurn.value === PlayerTurn.Player1) {
+      return currentGame.value?.p1stats.hp
+    } else {
+      return currentGame.value?.p2stats.hp
+    }
+  })
+
   const updateDMG = (n: number[]): void => {
     if (currentPlayerTurn.value === PlayerTurn.Player1) {
       player1Move.damage.push(...n)
@@ -80,6 +88,17 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
       } else {
         currentGame.value.p2stats.confusion += stats.confusion
         currentGame.value.p2stats.strength += stats.strength
+      }
+    }
+  }
+
+  // NOTE: A ver si es mejor el otro método
+  const updateCurrentHP = (hp: number): void => {
+    if (currentGame.value) {
+      if (currentPlayerTurn.value === PlayerTurn.Player1) {
+        currentGame.value.p1stats.hp = hp
+      } else {
+        currentGame.value.p2stats.hp = hp
       }
     }
   }
@@ -163,9 +182,11 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     updateDEF,
     updatePlayerStats,
     updateRivalStats,
+    updateCurrentHP,
     loadDataFromGame,
     turnMode,
     roundCount,
+    currentPlayerHP,
     nextTurn,
     fullResetMoves,
   }
