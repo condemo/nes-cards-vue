@@ -92,7 +92,6 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     }
   }
 
-  // NOTE: A ver si es mejor el otro método
   const updateCurrentHP = (hp: number): void => {
     if (currentGame.value) {
       if (currentPlayerTurn.value === PlayerTurn.Player1) {
