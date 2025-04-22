@@ -121,8 +121,11 @@ const openUpdateModal = (mode: UpdateMode) => {
 }
 
 const openHPModal = () => {
-  hpModal.value = true
+  if (currentPlayerTurn.value === props.playerPosition) {
+    hpModal.value = true
+  }
 }
+
 const closeHPModal = () => {
   hpModal.value = false
 }
