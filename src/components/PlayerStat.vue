@@ -67,7 +67,6 @@
     <UpdateMenu v-show="playerMenu" @open-update-modal="openUpdateModal" />
     <HPForm :open="hpModal" @close-hp-modal="closeHPModal" />
     <div class="divider"></div>
-    <!-- TODO: Hacer dinámico la carga de defensas -->
     <TowerStat :thp="playerStats?.t1hp"
       :defs="playerStats?.t2hp === 0 && playerStats.t1hp > 0 ? playerStats.defenses : undefined"
       :player-position="playerPosition" @open-update-modal="openUpdateModal" />
