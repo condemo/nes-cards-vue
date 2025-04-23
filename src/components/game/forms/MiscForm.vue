@@ -60,7 +60,8 @@ const resetMove = () => {
 const save = () => {
   // NOTE: awfull
   playerMove.value.poison += move.poison
-  playerMove.value.distract += move.distract
+  // playerMove.value.distract += move.distract
+  gameHandlerStore.distractRival(move.distract)
 
   resetMove()
   emits('close-update-modal')

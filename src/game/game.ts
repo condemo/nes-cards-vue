@@ -14,6 +14,7 @@ interface DefenseStack {
   size(): number
   updatePeek(n: number): void
   distract(n: number): void
+  undistract(): void
 }
 
 export class PlayerMove {
@@ -50,7 +51,13 @@ export class PlayerMove {
           }
         }
       },
+      undistract() {
+        this.defenseList.forEach((value) => {
+          if (value.active === false) { value.active = true }
+        })
+      }
     }
+
     this.poison = 0
     this.distract = 0
   }
@@ -124,6 +131,7 @@ export class PlayerMove {
     this.damage.splice(0)
     this.poison = 0
     this.distract = 0
+    this.defense.undistract()
   }
 
   fullReset() {

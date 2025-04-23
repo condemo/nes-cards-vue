@@ -108,6 +108,14 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     }
   }
 
+  const distractRival = (n: number): void => {
+    if (currentPlayerTurn.value === PlayerTurn.Player1) {
+      player2Move.applyDistract(n)
+    } else {
+      player1Move.applyDistract(n)
+    }
+  }
+
   const updateCurrentHP = (hp: number): void => {
     if (currentGame.value) {
       if (currentPlayerTurn.value === PlayerTurn.Player1) {
@@ -122,8 +130,8 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     if (currentGame.value) {
       if (turnMode.value === TurnMode.Defense) {
         // - Apply Distraction -
-        player1Move.applyDistract(player2Move.distract)
-        player2Move.applyDistract(player1Move.distract)
+        // player1Move.applyDistract(player2Move.distract)
+        // player2Move.applyDistract(player1Move.distract)
 
         // - DMG vs DF Moves -
         player1Move.damage = player2Move.applyDefense(player1Move.damage, currentGame.value.p1stats.strength)
@@ -198,6 +206,7 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     updatePlayerStats,
     updateRivalStats,
     updateCurrentHP,
+    distractRival,
     loadDataFromGame,
     turnMode,
     roundCount,
