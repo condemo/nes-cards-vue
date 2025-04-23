@@ -1,7 +1,7 @@
 import { defineStore, storeToRefs } from "pinia";
 import { PlayerTurn, TurnMode } from '@/types/game'
-import { PlayerMove } from '@/game/game'
-import { computed, reactive } from "vue";
+import { PlayerMove, type Defense } from '@/game/game'
+import { computed, reactive, type ComputedRef } from "vue";
 import { useGameDataStore } from "./gameData";
 import { calculateDMG } from "@/utils/game";
 
@@ -41,6 +41,22 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
       return currentGame.value?.p2stats.hp
     }
   })
+
+  const player1Defenses = computed(() => {
+    return player1Move.getCurrentDefenses()
+  })
+
+  const player2Defenses = computed(() => {
+    return player2Move.getCurrentDefenses()
+  })
+
+  const playerDefs = (pt: PlayerTurn): ComputedRef<Defense[]> => {
+    if (pt === PlayerTurn.Player1) {
+      return player1Defenses
+    } else {
+      return player2Defenses
+    }
+  }
 
   const updateDMG = (n: number[]): void => {
     if (currentPlayerTurn.value === PlayerTurn.Player1) {
@@ -186,6 +202,7 @@ export const useGameHandlerStore = defineStore('gameHandler', () => {
     turnMode,
     roundCount,
     currentPlayerHP,
+    playerDefs,
     nextTurn,
     fullResetMoves,
   }

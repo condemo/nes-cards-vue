@@ -68,9 +68,9 @@
     <HPForm :open="hpModal" @close-hp-modal="closeHPModal" />
     <div class="divider"></div>
     <TowerStat :thp="playerStats?.t1hp"
-      :defs="playerStats?.t2hp === 0 && playerStats.t1hp > 0 ? playerStats.defenses : undefined"
+      :defs="playerStats?.t2hp === 0 && playerStats.t1hp > 0 ? defenseList : undefined"
       :player-position="playerPosition" @open-update-modal="openUpdateModal" />
-    <TowerStat :thp="playerStats?.t2hp" :defs="checkTowerHP() ? playerStats?.defenses : undefined"
+    <TowerStat :thp="playerStats?.t2hp" :defs="checkTowerHP() ? defenseList : undefined"
       :player-position="playerPosition" @open-update-modal="openUpdateModal" />
   </div>
 </template>
@@ -97,6 +97,7 @@ const props = defineProps({
 
 const gameHandlerStore = useGameHandlerStore()
 const { currentPlayerTurn, turnMode } = storeToRefs(gameHandlerStore)
+const defenseList = gameHandlerStore.playerDefs(props.playerPosition)
 
 const emit = defineEmits(['open-update-modal', 'open-hp-modal'])
 
