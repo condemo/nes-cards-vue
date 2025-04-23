@@ -1,4 +1,4 @@
-interface Defense {
+export interface Defense {
   def: number
   active: boolean
 }
@@ -71,6 +71,10 @@ export class PlayerMove {
     })
 
     return defValues
+  }
+
+  getCurrentDefenses(): Defense[] {
+    return [...this.defense.defenseList]
   }
 
   applyDefense(dmg: number[], str: number): number[] {
