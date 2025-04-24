@@ -45,11 +45,18 @@ export class PlayerMove {
         }
       },
       distract(n) {
-        if (this.size() >= n) {
-          for (let i = 0; i < n; i++) {
-            this.defenseList[this.size() - 1 - i].active = false
+        // PERF: no hace falta crear una copia de la lista y luego reasignar;
+        // debería haber una forma mas sencilla, eficiente y elegante
+        if (this.size() < n) { n = this.size() }
+        let defs = [...this.defenseList].reverse()
+        defs.some((value) => {
+          if (value.active) {
+            value.active = false
+            n--
           }
-        }
+          if (n === 0) { return true }
+        })
+        this.defenseList = [...defs].reverse()
       },
       undistract() {
         this.defenseList.forEach((value) => {
