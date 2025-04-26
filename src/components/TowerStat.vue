@@ -1,27 +1,19 @@
 <template>
-  <div @click="openModal" class="stats shadow w-28 h-24 rounded-full mx-auto bg-base-300">
-    <div class="stat shadow-2xl" :class="colors.bg">
-      <div class="flex flex-col items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6"
-          :class="colors.text">
-          <path fill-rule="evenodd"
-            d="M4.5 2.25a.75.75 0 0 0 0 1.5v16.5h-.75a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5h-.75V3.75a.75.75 0 0 0 0-1.5h-15ZM9 6a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm-.75 3.75A.75.75 0 0 1 9 9h1.5a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM9 12a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm3.75-5.25A.75.75 0 0 1 13.5 6H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM13.5 9a.75.75 0 0 0 0 1.5H15A.75.75 0 0 0 15 9h-1.5Zm-.75 3.75a.75.75 0 0 1 .75-.75H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM9 19.5v-2.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 9 19.5Z"
-            clip-rule="evenodd"></path>
-        </svg>
-        <div class="stat-value text-3xl font-bold" :class="colors.text">{{ thp }}</div>
+  <div>
+    <div @click="openModal" class="stats shadow w-28 h-24 rounded-full mx-auto bg-base-300">
+      <div class="stat shadow-2xl" :class="colors.bg">
+        <div class="flex flex-col items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6"
+            :class="colors.text">
+            <path fill-rule="evenodd"
+              d="M4.5 2.25a.75.75 0 0 0 0 1.5v16.5h-.75a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5h-.75V3.75a.75.75 0 0 0 0-1.5h-15ZM9 6a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm-.75 3.75A.75.75 0 0 1 9 9h1.5a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM9 12a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm3.75-5.25A.75.75 0 0 1 13.5 6H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM13.5 9a.75.75 0 0 0 0 1.5H15A.75.75 0 0 0 15 9h-1.5Zm-.75 3.75a.75.75 0 0 1 .75-.75H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM9 19.5v-2.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 9 19.5Z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <div class="stat-value text-3xl font-bold" :class="colors.text">{{ thp }}</div>
+        </div>
       </div>
     </div>
-  </div>
-  <div v-if="defs" class="flex flex-col space-y-1">
-    <div v-for="d, i in defs" :key="i" class="flex flex-row justify-center font-bold"
-      :class="{ 'text-base-200': !d.active }">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-        <path fill-rule="evenodd"
-          d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-          clip-rule="evenodd" />
-      </svg>
-      {{ d.def }}
-    </div>
+    <DefensesContainer :defs="defs" />
   </div>
 </template>
 
@@ -31,6 +23,7 @@ import { useGameHandlerStore } from '@/stores/gameHandler';
 import { PlayerTurn, UpdateMode } from '@/types/game';
 import { storeToRefs } from 'pinia';
 import { computed, reactive, type PropType } from 'vue';
+import DefensesContainer from './partials/DefensesContainer.vue';
 
 const emits = defineEmits(['open-update-modal'])
 

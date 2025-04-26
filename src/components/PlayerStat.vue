@@ -65,7 +65,8 @@
       </div>
     </div>
     <UpdateMenu v-show="playerMenu" @open-update-modal="openUpdateModal" />
-    <HPForm :open="hpModal" @close-hp-modal="closeHPModal" />
+    <HPForm :open="hpModal" :def-active="defenseDead as boolean" @close-hp-modal="closeHPModal" />
+    <DefensesContainer v-if="defenseDead" :defs="defenseList" />
     <div class="divider"></div>
     <TowerStat :thp="playerStats?.t1hp"
       :defs="playerStats?.t2hp === 0 && playerStats.t1hp > 0 ? defenseList : undefined"
@@ -84,6 +85,7 @@ import HPForm from './game/forms/HPForm.vue';
 import { TurnMode, UpdateMode } from '@/types/game'
 import { useGameHandlerStore } from '@/stores/gameHandler';
 import { storeToRefs } from 'pinia';
+import DefensesContainer from './partials/DefensesContainer.vue';
 
 const props = defineProps({
   player: {
@@ -105,6 +107,9 @@ const hpModal = ref<boolean>(false)
 
 const playerMenu = computed(() => {
   return currentPlayerTurn.value === props.playerPosition
+})
+const defenseDead = computed(() => {
+  return props.playerStats?.t2hp === 0 && props.playerStats?.t1hp === 0
 })
 
 const checkTowerHP = (): boolean => {
