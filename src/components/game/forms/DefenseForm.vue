@@ -8,7 +8,7 @@
       <button class="btn btn-success" @click="addtoDef">Add</button>
     </div>
     <p>new def:{{ defList }}</p>
-    <div class="flex flex-row justify-around p-2 mt-2">
+    <div v-if="updateMenu" class="flex flex-row justify-around p-2 mt-2">
       <button class="btn btn-error w-1/6" @click="reset">reset</button>
       <button class="btn btn-primary w-4/6" @click="save">Save</button>
     </div>
@@ -22,6 +22,9 @@ import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 
 const emits = defineEmits(['close-update-modal'])
+defineProps({
+  updateMenu: { type: Boolean, default: false }
+})
 
 const gameHandlerStore = useGameHandlerStore()
 const { currentPlayerTurn, turnMode } = storeToRefs(gameHandlerStore)
