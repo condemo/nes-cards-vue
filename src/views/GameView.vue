@@ -18,8 +18,7 @@
     </div>
     <WinModal v-if="currentGame?.winner !== 'none'" :winner="currentGame?.winner" />
     <GameUpdateModal @close-update-modal="closeUpdateModal" :current-section="updateSection" :open="updateModal">
-      <MiscForm v-if="updateSection === UpdateMode.Misc" @close-update-modal="closeUpdateModal" />
-      <DamageForm v-else-if="updateSection === UpdateMode.Damage" @close-update-modal="closeUpdateModal" />
+      <DamageForm v-if="updateSection === UpdateMode.Damage" @close-update-modal="closeUpdateModal" />
       <StatsForm v-else-if="updateSection === UpdateMode.Stats" @close-update-modal="closeUpdateModal" />
       <DefenseForm v-else-if="updateSection === UpdateMode.Defense" @close-update-modal="closeUpdateModal" />
       <RivalForm v-else @close-update-modal="closeUpdateModal" />
@@ -33,7 +32,6 @@ import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import PlayerStat from '@/components/PlayerStat.vue'
 import GameUpdateModal from '@/components/game/GameUpdateModal.vue'
 import { PlayerTurn, UpdateMode } from '@/types/game'
-import MiscForm from '@/components/game/forms/MiscForm.vue'
 import DamageForm from '@/components/game/forms/DamageForm.vue'
 import StatsForm from '@/components/game/forms/StatsForm.vue'
 import DefenseForm from '@/components/game/forms/DefenseForm.vue'
