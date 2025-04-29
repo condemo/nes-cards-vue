@@ -22,7 +22,7 @@ import type { Defense } from '@/game/game';
 import { useGameHandlerStore } from '@/stores/gameHandler';
 import { PlayerTurn, UpdateMode } from '@/types/game';
 import { storeToRefs } from 'pinia';
-import { computed, reactive, type PropType } from 'vue';
+import { computed, reactive, ref, watchEffect, type PropType } from 'vue';
 import DefensesContainer from './partials/DefensesContainer.vue';
 
 const emits = defineEmits(['open-update-modal'])
@@ -36,13 +36,16 @@ const props = defineProps({
 const gameHandler = useGameHandlerStore()
 const { currentPlayerTurn } = storeToRefs(gameHandler)
 
-const checkHP = computed(() => {
-  if (props.thp) {
+const checkHP = ref<boolean>(false)
+
+watchEffect(() => {
+  if (props.thp !== undefined) {
     if (props.thp > 0) {
-      return true
+      checkHP.value = true
+    } else {
+      checkHP.value = false
     }
   }
-  return false
 })
 
 const openModal = () => {
@@ -50,11 +53,11 @@ const openModal = () => {
     emits('open-update-modal', UpdateMode.Defense)
 }
 
-const colors = reactive({
-  bg: checkHP.value ? 'bg-neutral' : 'bg-base-100',
-  text: checkHP.value ? 'text-neutral-content' : 'text-base-300',
-
+const colors = computed(() => {
+  return {
+    bg: checkHP.value ? 'bg-neutral' : 'bg-base-100',
+    text: checkHP.value ? 'text-neutral-content' : 'text-base-300',
+  }
 })
-
 
 </script>
