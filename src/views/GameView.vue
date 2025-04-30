@@ -20,7 +20,8 @@
     <GameUpdateModal @close-update-modal="closeUpdateModal" :current-section="updateSection" :open="updateModal">
       <DamageForm v-if="updateSection === UpdateMode.Damage" @close-update-modal="closeUpdateModal" />
       <StatsForm v-else-if="updateSection === UpdateMode.Stats" @close-update-modal="closeUpdateModal" />
-      <DefenseForm v-else-if="updateSection === UpdateMode.Defense" @close-update-modal="closeUpdateModal" />
+      <DefenseForm v-else-if="updateSection === UpdateMode.Defense" :update-menu="true"
+        @close-update-modal="closeUpdateModal" />
       <RivalForm v-else @close-update-modal="closeUpdateModal" />
     </GameUpdateModal>
   </div>
