@@ -22,7 +22,7 @@ import type { Defense } from '@/game/game';
 import { useGameHandlerStore } from '@/stores/gameHandler';
 import { PlayerTurn, UpdateMode } from '@/types/game';
 import { storeToRefs } from 'pinia';
-import { computed, reactive, ref, watchEffect, type PropType } from 'vue';
+import { computed, ref, watchEffect, type PropType } from 'vue';
 import DefensesContainer from './partials/DefensesContainer.vue';
 
 const emits = defineEmits(['open-update-modal'])
