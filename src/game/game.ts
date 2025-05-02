@@ -47,8 +47,6 @@ export class PlayerMove {
       distract(n) {
         // PERF: no hace falta crear una copia de la lista y luego reasignar;
         // debería haber una forma mas sencilla, eficiente y elegante;
-        // `this.defenseList.splice().reverse.forEach` elimina la necesidad de
-        // crear y revertir la copia dos veces
         if (this.size() < n) { n = this.size() }
         let defs = [...this.defenseList].reverse()
         defs.some((value) => {
