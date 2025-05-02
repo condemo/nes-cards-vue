@@ -46,7 +46,9 @@ export class PlayerMove {
       },
       distract(n) {
         // PERF: no hace falta crear una copia de la lista y luego reasignar;
-        // debería haber una forma mas sencilla, eficiente y elegante
+        // debería haber una forma mas sencilla, eficiente y elegante;
+        // `this.defenseList.splice().reverse.forEach` elimina la necesidad de
+        // crear y revertir la copia dos veces
         if (this.size() < n) { n = this.size() }
         let defs = [...this.defenseList].reverse()
         defs.some((value) => {
@@ -94,35 +96,38 @@ export class PlayerMove {
   applyDefense(dmg: number[], str: number): number[] {
     let dmgCopy = [...dmg]
     let disabledDefs: Defense[] = []
+    let activeDefs: Defense[] = []
+
+    // divide `defenseList` into disabled or active defenses
+    this.defense.defenseList.forEach((value) => {
+      if (value.active) {
+        activeDefs.push(value)
+      } else {
+        disabledDefs.push(value)
+      }
+    })
+    this.defense.defenseList = activeDefs
 
     dmg.some((value, index, array) => {
       let lastDef = this.defense.peek()
       if (lastDef) {
-        if (!lastDef.active) {
-          disabledDefs.push(lastDef)
+        let defRest = lastDef.def - (value + str)
+        let dmgRest = -defRest
+        if (defRest <= 0) {
           this.defense.pop()
-          lastDef = this.defense.peek()
-        }
-        if (lastDef) {
-          let defRest = lastDef.def - (value + str)
-          let dmgRest = -defRest
-          if (defRest <= 0) {
-            this.defense.pop()
+          dmgCopy.shift()
+        } else {
+          if (dmgRest <= 0) {
             dmgCopy.shift()
-          } else {
-            if (dmgRest <= 0) {
-              dmgCopy.shift()
-            }
-            if (index !== array.length - 1) {
-              this.defense.updatePeek(defRest)
-            }
+          }
+          if (index !== array.length - 1) {
+            this.defense.updatePeek(defRest)
           }
         }
       } else { return true }
     })
 
     // foward removed distracted defs
-    disabledDefs.reverse()
     disabledDefs.forEach((value) => {
       this.defense.push(value.def)
     })
