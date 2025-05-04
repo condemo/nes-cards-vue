@@ -4,6 +4,7 @@ import RecordView from '@/views/RecordView.vue'
 import GameView from '@/views/GameView.vue'
 import NewGameView from '@/views/NewGameView.vue'
 import ConfigView from '@/views/ConfigView.vue'
+import AboutView from '@/views/AboutView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       name: 'config',
       component: ConfigView,
     },
+    {
+      path: '/about',
+      name: 'about',
+      component: AboutView,
+    }
     // {
     //   path: '/about',
     //   name: 'about',
