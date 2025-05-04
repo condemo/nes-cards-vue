@@ -5,7 +5,7 @@ import BottomNav from '@/components/BottomNav.vue'
 <template>
   <div>
     <div id="main-container" class="flex flex-col mx-auto text-center h-screen px-1">
-      <RouterView />
+      <RouterView class="my-2" />
       <BottomNav />
     </div>
   </div>
