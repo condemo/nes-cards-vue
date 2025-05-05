@@ -17,9 +17,12 @@
       </div>
       <div id="info" class="flex flex-col rounded-2xl h-80 mt-7 mx-2 p-4 shadow-2xl">
         <div class="flex flex-col flex-grow shadow-lg rounded-xl">
-          <div class="flex-grow">
+          <div class="flex flex-col flex-grow">
             <div class="p-3 text-center w-28 mx-auto">
               <p>{{ description }}</p>
+            </div>
+            <div class="flex flex-row mx-auto">
+              <a class="link-primary underline" href="https://github.com/condemo/nes-cards-vue">Source Code</a>
             </div>
           </div>
           <div class="my-2 text-neutral">
@@ -27,7 +30,7 @@
           </div>
         </div>
         <div id="web-links" class="flex flex-row justify-evenly mt-3 space-x-1 *:w-14 *:h-14">
-          <a href="https://github.com/condemo/nes-cards-vue" target="_blank">
+          <a href="https://github.com/condemo" target="_blank">
             <button class="btn bg-black text-black border-[#e5e5e5] w-14 h-14">
               <svg aria-label="GitHub logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path fill="white"
