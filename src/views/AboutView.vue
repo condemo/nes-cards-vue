@@ -11,12 +11,13 @@
     </div>
     <div class="flex flex-col mb-5 mt-1">
       <div id="logo" class="flex flex-col justify-center items-center text-4xl">
-        <img class="mb-2 mt-4" src="https://picsum.photos/100/100" />
+        <img @load="logoLoaded()" v-show="isLogoLoaded" class="mb-2 mt-4" src="https://picsum.photos/100/100" />
+        <LoadingSpinner v-show="!isLogoLoaded" />
         <h1>Slay Rivals</h1>
       </div>
       <div id="info" class="flex flex-col rounded-2xl h-80 mt-7 mx-2 p-4 shadow-2xl">
-        <div class="flex-grow"></div>
-        <div id="web-links" class="flex flex-row justify-evenly space-x-1 *:w-14 *:h-14">
+        <div class="flex-grow shadow-lg rounded-xl"></div>
+        <div id="web-links" class="flex flex-row justify-evenly mt-3 space-x-1 *:w-14 *:h-14">
           <a href="https://github.com/condemo/nes-cards-vue" target="_blank">
             <svg aria-label="GitHub logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path fill="black"
@@ -63,3 +64,14 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
+
+const isLogoLoaded = ref<boolean>(false)
+
+const logoLoaded = () => {
+  isLogoLoaded.value = true
+}
+</script>
