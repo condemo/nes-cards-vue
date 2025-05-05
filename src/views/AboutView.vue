@@ -9,7 +9,7 @@
         </svg>
       </button>
     </div>
-    <div class="flex flex-col mb-5 mt-1">
+    <div class="flex flex-col mb-5 mt-1 flex-grow">
       <div id="logo" class="flex flex-col justify-center items-center text-4xl">
         <img @load="logoLoaded()" v-show="isLogoLoaded" class="mb-2 mt-4" src="https://picsum.photos/100/100" />
         <LoadingSpinner v-show="!isLogoLoaded" />
@@ -17,7 +17,11 @@
       </div>
       <div id="info" class="flex flex-col rounded-2xl h-80 mt-7 mx-2 p-4 shadow-2xl">
         <div class="flex flex-col flex-grow shadow-lg rounded-xl">
-          <div class="flex-grow"></div>
+          <div class="flex-grow">
+            <div class="p-3 text-center w-28 mx-auto">
+              <p>{{ description }}</p>
+            </div>
+          </div>
           <div class="my-2 text-neutral">
             <p>ver.: {{ currentVersion }} build.: {{ currentBuild }}</p>
           </div>
@@ -66,7 +70,7 @@
         </div>
       </div>
     </div>
-    <div class="fixed bottom-16 left-3 p-1">&#127279; 2025 Gustavo de los Santos.
+    <div>&#127279; 2025 Gustavo de los Santos.
       <a class="link" href="https://github.com/condemo/nes-cards-vue/blob/main/LICENSE">License Info</a>
     </div>
   </div>
@@ -78,6 +82,7 @@ import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 const currentVersion = __APP_VERSION__
 const currentBuild = __CURRENT_BUILD__
+const description = __DESCRIPTION__
 const isLogoLoaded = ref<boolean>(false)
 
 const logoLoaded = () => {

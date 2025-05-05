@@ -25,6 +25,7 @@ export default defineConfig({
   },
   define: {
     '__APP_VERSION__': JSON.stringify(process.env.npm_package_version),
-    '__CURRENT_BUILD__': JSON.stringify(`${day}${month}${year}`)
+    '__CURRENT_BUILD__': JSON.stringify(`${day}${month}${year}`),
+    '__DESCRIPTION__': JSON.stringify(process.env.npm_package_description),
   }
 })
