@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="front-view" class="flex flex-col space-y-5">
-      <h1 class="text-4xl font-bold">HOME</h1>
+      <h1 class="text-4xl font-[Kreon] italic font-bold">Slay the Spire: Rivals</h1>
       <div>
         <img src="/img/welcome_img.jpeg" alt="nes tirao" class="w-52 mx-auto" />
         <router-link to="/new-game">
