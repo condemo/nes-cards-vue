@@ -1,6 +1,6 @@
 {
   "name": "vue-nes-cards",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha",
   "description": "A simple app for controlling Slay the Spire: Rivals games.",
   "private": true,
   "type": "module",
