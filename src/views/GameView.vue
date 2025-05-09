@@ -74,8 +74,8 @@ const { currentGame, loading } = storeToRefs(gameDataStore)
 onBeforeMount(async () => {
   if (!currentGame.value) {
     await gameDataStore.setLastGame()
+    gameHandlerStore.loadDataFromGame()
   }
-  gameHandlerStore.loadDataFromGame()
 })
 
 const nextTurn = () => {
