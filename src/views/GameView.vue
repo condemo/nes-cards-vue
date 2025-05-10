@@ -70,11 +70,19 @@ const { roundCount } = storeToRefs(gameHandlerStore)
 const updateSection = ref<UpdateMode>(UpdateMode.Damage)
 const updateModal = ref<boolean>(false)
 
+const props = defineProps({
+  fromNavigation: { type: Boolean },
+})
+
 const { currentGame, loading } = storeToRefs(gameDataStore)
 onBeforeMount(async () => {
   if (!currentGame.value) {
     await gameDataStore.setLastGame()
     gameHandlerStore.loadDataFromGame()
+  } else {
+    if (!props.fromNavigation) {
+      gameHandlerStore.loadDataFromGame()
+    }
   }
 })
 

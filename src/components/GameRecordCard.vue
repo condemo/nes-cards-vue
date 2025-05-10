@@ -3,8 +3,16 @@
     <div class="card-body">
       <h2 class="card-title">{{ formatedDate }}</h2>
       <div class="flex flex-row justify-around">
-        <SimplePlayerStat :player="game.player1" :stats="game.p1stats" :winner="game.player1.name === game.winner" />
-        <SimplePlayerStat :player="game.player2" :stats="game.p2stats" :winner="game.player2.name === game.winner" />
+        <SimplePlayerStat
+          :player="game.player1"
+          :stats="game.p1stats"
+          :winner="game.player1.name === game.winner"
+        />
+        <SimplePlayerStat
+          :player="game.player2"
+          :stats="game.p2stats"
+          :winner="game.player2.name === game.winner"
+        />
       </div>
     </div>
   </div>

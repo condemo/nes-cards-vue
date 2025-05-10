@@ -23,6 +23,7 @@ const router = createRouter({
       path: '/game',
       name: 'game',
       component: GameView,
+      props: (route) => ({ fromNavigation: route.query.nav === 'true' }),
     },
     {
       path: '/new-game',
@@ -38,7 +39,7 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: AboutView,
-    }
+    },
     // {
     //   path: '/about',
     //   name: 'about',
