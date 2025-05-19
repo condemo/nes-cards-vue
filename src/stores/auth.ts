@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { shallowReactive, watchEffect } from "vue";
+import { computed, shallowReactive, watchEffect } from "vue";
 import { ref } from "vue";
 
 export const useAuthStore = defineStore("auth", () => {
@@ -14,8 +14,17 @@ export const useAuthStore = defineStore("auth", () => {
     }))
   )
 
-  const authorizationHeader = `Bearer ${authTokens.token}`
-  const refreshHeader = `Bearer ${authTokens.refreshToken}`
+  const authorizationHeader = computed(() => {
+    return {
+      Authorization: `Bearer ${authTokens.token}`,
+    }
+  })
+
+  const refreshHeader = computed(() => {
+    return {
+      Authorization: `Bearer ${authTokens.refreshToken}`
+    }
+  })
 
   watchEffect(async () => {
     localStorage.setItem('isLogged', JSON.stringify(isLogged.value))

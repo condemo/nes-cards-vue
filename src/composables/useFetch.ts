@@ -25,9 +25,7 @@ export function useFetch<T>(endpoint: string): ApiResponse<T> {
     try {
       loading.value = true
       await axios.get(url, {
-        headers: {
-          "Authorization": authorizationHeader.value,
-        }
+        headers: authorizationHeader.value,
       })
         .then(res => {
           data.value = res.data
@@ -35,9 +33,7 @@ export function useFetch<T>(endpoint: string): ApiResponse<T> {
         .catch(async err => {
           if (err.response.data.code === 401) {
             await axios.post(baseUrl + '/auth/refresh', {}, {
-              headers: {
-                "Authorization": refreshHeader.value,
-              }
+              headers: refreshHeader.value,
             })
               .then(res => {
                 data.value = res.data as Player[]
