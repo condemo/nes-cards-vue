@@ -17,7 +17,6 @@ app.use(router)
 // Setup config hooks
 useConfigStore()
 useGameDataStore()
-const auth = useAuthStore()
-auth.loadLoginStatus()
+useAuthStore()
 
 app.mount('#app')
