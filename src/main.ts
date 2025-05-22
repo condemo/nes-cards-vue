@@ -1,6 +1,7 @@
 import './assets/css/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import '@/interceptors/axios'
 
 import App from './App.vue'
 import router from './router'
@@ -15,8 +16,7 @@ app.use(pinia)
 app.use(router)
 
 // Setup config hooks
-useConfigStore()
-useGameDataStore()
 useAuthStore()
+useConfigStore()
 
 app.mount('#app')

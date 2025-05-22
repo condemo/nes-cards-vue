@@ -1,3 +1,4 @@
+import axios from "axios";
 import { defineStore } from "pinia";
 import { computed, shallowReactive, watchEffect } from "vue";
 import { ref } from "vue";
@@ -7,12 +8,15 @@ export const useAuthStore = defineStore("auth", () => {
     JSON.parse(localStorage.getItem("isLogged") || 'false')
   )
 
-  const authTokens = shallowReactive(
-    JSON.parse(localStorage.getItem("authTokens") || JSON.stringify({
-      token: "",
-      refreshToken: ""
-    }))
-  )
+  const authTokens = shallowReactive({
+    token: '',
+    refreshToken: ''
+  })
+
+  authTokens.token = localStorage.getItem("token") || ""
+  authTokens.refreshToken = localStorage.getItem("refreshToken") || ""
+  axios.defaults.headers.common['Authorization'] = `Bearer ${authTokens.token}`
+  console.log("auth things loaded")
 
   const authorizationHeader = computed(() => {
     return {
@@ -30,8 +34,12 @@ export const useAuthStore = defineStore("auth", () => {
     localStorage.setItem('isLogged', JSON.stringify(isLogged.value))
   })
 
-  watchEffect(async () => {
-    localStorage.setItem('authTokens', JSON.stringify(authTokens))
+  watchEffect(() => {
+    localStorage.setItem('token', authTokens.token)
+  })
+
+  watchEffect(() => {
+    localStorage.setItem('refreshToken', authTokens.refreshToken)
   })
 
   return {

@@ -36,14 +36,14 @@ const pass = ref<string>("")
 const errorMsg = ref<string>("")
 const usInput = useTemplateRef("usInput")
 
-const login = () => {
-  axios.post(url, {
+const login = async () => {
+  await axios.post(url, {
     username: us.value,
     password: pass.value,
   }, {
     headers: {
-      'Content-Type': "application/x-www-form-urlencoded"
-    }
+      'Content-Type': "application/x-www-form-urlencoded",
+    },
   })
     .then(res => {
       authTokens.value.token = res.data.access_token

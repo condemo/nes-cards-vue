@@ -21,3 +21,9 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useGameDataStore } from '@/stores/gameData';
+
+useGameDataStore()
+</script>
