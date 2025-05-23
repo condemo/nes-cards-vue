@@ -17,18 +17,6 @@ export const useAuthStore = defineStore("auth", () => {
   authTokens.refreshToken = localStorage.getItem("refreshToken") || ""
   axios.defaults.headers.common['Authorization'] = `Bearer ${authTokens.token}`
 
-  const authorizationHeader = computed(() => {
-    return {
-      Authorization: `Bearer ${authTokens.token}`,
-    }
-  })
-
-  const refreshHeader = computed(() => {
-    return {
-      Authorization: `Bearer ${authTokens.refreshToken}`
-    }
-  })
-
   watchEffect(() => {
     localStorage.setItem('isLogged', JSON.stringify(isLogged.value))
   })
@@ -43,8 +31,6 @@ export const useAuthStore = defineStore("auth", () => {
 
   return {
     isLogged,
-    authorizationHeader,
-    refreshHeader,
     authTokens,
   }
 })

@@ -6,7 +6,6 @@ import '@/interceptors/axios'
 import App from './App.vue'
 import router from './router'
 import { useConfigStore } from '@/stores/config'
-import { useGameDataStore } from './stores/gameData'
 import { useAuthStore } from './stores/auth'
 
 const app = createApp(App)
