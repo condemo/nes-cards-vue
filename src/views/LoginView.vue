@@ -20,13 +20,9 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
-import { useConfigStore } from '@/stores/config'
 import axios from 'axios'
 import { storeToRefs } from 'pinia'
 import { ref, useTemplateRef } from 'vue'
-
-const configStore = useConfigStore()
-const url = configStore.envConfig.serverBase + "/auth/login"
 
 const authStore = useAuthStore()
 const { authTokens, isLogged } = storeToRefs(authStore)
@@ -37,7 +33,7 @@ const errorMsg = ref<string>("")
 const usInput = useTemplateRef("usInput")
 
 const login = async () => {
-  await axios.post(url, {
+  await axios.post('auth/login', {
     username: us.value,
     password: pass.value,
   }, {

@@ -18,5 +18,5 @@ import GameRecordCard from '@/components/GameRecordCard.vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import ErrorMessage from '@/components/ErrorMessage.vue'
 
-const { data, error, loading } = useFetch<Game[]>('/game/?limit=10')
+const { data, error, loading } = useFetch<Game[]>('game/?limit=10')
 </script>

@@ -11,7 +11,7 @@ export const useGameDataStore = defineStore('gameData', () => {
   const currentGame = ref<Game | null>(null)
   const loading = ref<boolean>(false)
   const apiError = ref<ApiError | null>(null)
-  const playerList = useFetch<Player[]>('/player/').data
+  const playerList = useFetch<Player[]>('player/').data
 
   const createPlayer = async (name: string) => {
     loading.value = true

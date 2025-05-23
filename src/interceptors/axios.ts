@@ -3,6 +3,8 @@ import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 import { storeToRefs } from "pinia";
 
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE
+
 axios.interceptors.request.use(
   (config) => {
     const authStore = useAuthStore()
@@ -32,7 +34,7 @@ axios.interceptors.response.use(
     }
 
     try {
-      const response = await axios.get("http://192.168.3.54:3000/auth/refresh", {
+      const response = await axios.get("auth/refresh", {
         headers: {
           Authorization: `Bearer ${authTokens.value.refreshToken}`
         }

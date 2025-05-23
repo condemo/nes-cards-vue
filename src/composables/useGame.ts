@@ -15,7 +15,7 @@ export const useCreateGame = async (game: GameSetup) => {
   const { isLogged } = storeToRefs(authStore)
 
   await axios
-    .post(serverUrl + '/game/', game)
+    .post(serverUrl + 'game/', game)
     .then((res) => {
       createdGame.value = res.data as Game
     })
@@ -42,7 +42,7 @@ export const useCreatePlayer = async (name: string) => {
   const { isLogged } = storeToRefs(authStore)
 
   await axios
-    .post(serverUrl + '/player/', { name: name })
+    .post(serverUrl + 'player/', { name: name })
     .then((res) => {
       newPlayer.value = res.data as Player
     })
@@ -67,7 +67,7 @@ export const useGetLastGame = async () => {
   const { isLogged } = storeToRefs(authStore)
 
   await axios
-    .get(serverUrl + '/game/last', {
+    .get(serverUrl + 'game/last', {
       params: { updateCurrent: true },
     })
     .then((res) => {
@@ -90,7 +90,7 @@ export const useUpdateGame = async (game: Game) => {
   const { isLogged } = storeToRefs(authStore)
 
   await axios.
-    put(serverUrl + '/game/', game)
+    put(serverUrl + 'game/', game)
     .catch(err => {
       if (err.response.data.code === 401) {
         isLogged.value = false
