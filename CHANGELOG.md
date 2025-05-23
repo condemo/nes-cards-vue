@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ***
 
+## [0.1.0-alpha] - 2025-05-23
+
+### Added
+
+- Authentication system
+
+### Changed
+- Link to README in About
+
 ## [0.0.2-alpha] - 2025-05-10
 
 ### Added
