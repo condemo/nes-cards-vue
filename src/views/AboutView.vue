@@ -22,11 +22,14 @@
               <p>{{ description }}</p>
             </div>
             <div class="flex flex-row mx-auto">
-              <a class="link-primary underline" href="https://github.com/condemo/nes-cards-vue">Source Code</a>
+              <a class="link link-primary" href="https://github.com/condemo/nes-cards-vue">Source Code</a>
             </div>
           </div>
           <div class="my-2 text-neutral">
-            <p>ver_: {{ currentVersion }} build_: {{ currentBuild }}</p>
+            <p>ver_: {{ currentVersion }} build_: {{ currentBuild }}. <a
+                href="https://github.com/condemo/nes-cards-vue/blob/main/CHANGELOG.md"
+                class="link link-info">CHANGELOG</a>
+            </p>
           </div>
         </div>
         <div id="web-links" class="flex flex-row justify-evenly mt-3 space-x-1 *:w-14 *:h-14">
