@@ -16,7 +16,6 @@ export const useAuthStore = defineStore("auth", () => {
   authTokens.token = localStorage.getItem("token") || ""
   authTokens.refreshToken = localStorage.getItem("refreshToken") || ""
   axios.defaults.headers.common['Authorization'] = `Bearer ${authTokens.token}`
-  console.log("auth things loaded")
 
   const authorizationHeader = computed(() => {
     return {
@@ -30,7 +29,7 @@ export const useAuthStore = defineStore("auth", () => {
     }
   })
 
-  watchEffect(async () => {
+  watchEffect(() => {
     localStorage.setItem('isLogged', JSON.stringify(isLogged.value))
   })
 
