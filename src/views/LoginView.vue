@@ -20,20 +20,31 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
+import { useConfigStore } from '@/stores/config'
 import axios from 'axios'
 import { storeToRefs } from 'pinia'
 import { ref, useTemplateRef } from 'vue'
 
+const configStore = useConfigStore()
+
 const authStore = useAuthStore()
-const { authTokens, isLogged } = storeToRefs(authStore)
+const { refreshToken, token, isLogged } = storeToRefs(authStore)
 
 const us = ref<string>("")
 const pass = ref<string>("")
 const errorMsg = ref<string>("")
 const usInput = useTemplateRef("usInput")
 
+const loginInstance = axios.create({
+  baseURL: configStore.envConfig.serverBase,
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded"
+  }
+})
+
 const login = async () => {
-  await axios.post('auth/login', {
+  await loginInstance.post('auth/login', {
     username: us.value,
     password: pass.value,
   }, {
@@ -42,8 +53,8 @@ const login = async () => {
     },
   })
     .then(res => {
-      authTokens.value.token = res.data.access_token
-      authTokens.value.refreshToken = res.data.refresh_token
+      token.value = res.data.access_token
+      refreshToken.value = res.data.refresh_token
       isLogged.value = true
       errorMsg.value = ""
       router.replace({ name: 'home' })

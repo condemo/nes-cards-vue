@@ -8,10 +8,10 @@ axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE
 axios.interceptors.request.use(
   (config) => {
     const authStore = useAuthStore()
-    const { authTokens } = storeToRefs(authStore)
-    const token = authTokens.value.token
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`
+    const { token } = storeToRefs(authStore)
+
+    if (token.value) {
+      config.headers["Authorization"] = `Bearer ${token.value}`
     }
     return config
   },
@@ -26,7 +26,7 @@ axios.interceptors.response.use(
   },
   async (error) => {
     const authStore = useAuthStore()
-    const { authTokens, isLogged } = storeToRefs(authStore)
+    const { token, refreshToken, isLogged } = storeToRefs(authStore)
     const originalRequest = error.config;
 
     if (error.response && error.response.status === 401 || error.response.status === 410 && !originalRequest._retry) {
@@ -36,12 +36,12 @@ axios.interceptors.response.use(
     try {
       const response = await axios.get("auth/refresh", {
         headers: {
-          Authorization: `Bearer ${authTokens.value.refreshToken}`
+          Authorization: `Bearer ${refreshToken.value}`
         }
       })
 
       if (response) {
-        authTokens.value.token = response.data.access_token
+        token.value = response.data.access_token
         originalRequest.headers["Authorization"] = `Bearer ${response.data.access_token}`
         isLogged.value = true
         return axios(originalRequest)

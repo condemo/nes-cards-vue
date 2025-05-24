@@ -7,14 +7,16 @@ export const useAuthStore = defineStore("auth", () => {
   const isLogged = ref<boolean>(
     JSON.parse(localStorage.getItem("isLogged") || 'false')
   )
+  const token = ref<string>('')
+  const refreshToken = ref<string>('')
 
   const authTokens = shallowReactive({
     token: '',
     refreshToken: ''
   })
 
-  authTokens.token = localStorage.getItem("token") || ""
-  authTokens.refreshToken = localStorage.getItem("refreshToken") || ""
+  token.value = localStorage.getItem("token") || ""
+  refreshToken.value = localStorage.getItem("refreshToken") || ""
   axios.defaults.headers.common['Authorization'] = `Bearer ${authTokens.token}`
 
   watchEffect(() => {
@@ -22,15 +24,16 @@ export const useAuthStore = defineStore("auth", () => {
   })
 
   watchEffect(() => {
-    localStorage.setItem('token', authTokens.token)
+    localStorage.setItem('token', token.value)
   })
 
   watchEffect(() => {
-    localStorage.setItem('refreshToken', authTokens.refreshToken)
+    localStorage.setItem('refreshToken', refreshToken.value)
   })
 
   return {
     isLogged,
-    authTokens,
+    refreshToken,
+    token,
   }
 })
